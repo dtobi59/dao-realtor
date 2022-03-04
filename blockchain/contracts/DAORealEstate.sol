@@ -44,11 +44,11 @@ contract DAORealEstate is Ownable {
    }
 
 
-   function getDeveloperCreationCollateralization() public returns ( uint d ){
+   function getDeveloperCreationFees() public returns ( uint d ){
       return developer_fees;
    }
 
-   function getValidatorCreationCollateralization() public returns ( uint ){
+   function getValidatorCreationFees() public returns ( uint ){
       return validator_fees;
    }
  
@@ -94,7 +94,7 @@ contract DAORealEstate is Ownable {
       string memory _government_id,
       string memory _name,
       string memory _home_address
-   ) payable external creationFee(getDeveloperCreationCollateralization()) newAddress{
+   ) payable external creationFee(getDeveloperCreationFees()) newAddress{
       
       users[msg.sender] =  User({
          account_type: "developer",
@@ -109,7 +109,7 @@ contract DAORealEstate is Ownable {
       string memory _home_address,
       string memory _government_id,
       string memory _name
-   ) payable external creationFee(getValidatorCreationCollateralization()) newAddress{
+   ) payable external creationFee(getValidatorCreationFees()) newAddress{
       
         users[msg.sender] = User({
          account_type: "validator",
