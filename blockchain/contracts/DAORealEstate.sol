@@ -27,6 +27,7 @@ contract DAORealEstate is Ownable {
         string government_id;
         string name;
         string account_type;
+        bool is_created;
    }
 
    uint developer_fees;
@@ -38,8 +39,8 @@ contract DAORealEstate is Ownable {
    Property[] public properties;
  
    constructor (uint _developer_fees, uint _validator_fees) {
-       developer_fees = _developer_fees;
-       validator_fees = _validator_fees;
+       developer_fees = _developer_fees; //WEI
+       validator_fees = _validator_fees; //WEI
    }
 
 
@@ -58,7 +59,7 @@ contract DAORealEstate is Ownable {
       string memory _description,
       string memory _longitude,
       string memory _latitude,
-      string memory _image_hash) external onlyDeveloper{ 
+      string memory _image_hash) external onlyDeveloper { 
    
 
      uint id = properties.length - 1;
@@ -78,12 +79,13 @@ contract DAORealEstate is Ownable {
       string memory _government_id,
       string memory _home_address
     
-   )  external {
+   )  external newAddress{
       users[msg.sender] = User({
          account_type: "developer",
          government_id: _government_id,
          name: _name,
-         home_address: _home_address
+         home_address: _home_address,
+         is_created: true
       });
 
    }
@@ -92,13 +94,14 @@ contract DAORealEstate is Ownable {
       string memory _government_id,
       string memory _name,
       string memory _home_address
-   ) payable external creationFee(getDeveloperCreationCollateralization()) {
+   ) payable external creationFee(getDeveloperCreationCollateralization()) newAddress{
       
       users[msg.sender] =  User({
          account_type: "developer",
          government_id: _government_id,
          name: _name,
-         home_address: _home_address
+         home_address: _home_address,
+         is_created: true
       });
    }
 
@@ -106,13 +109,14 @@ contract DAORealEstate is Ownable {
       string memory _home_address,
       string memory _government_id,
       string memory _name
-   ) payable external creationFee(getValidatorCreationCollateralization()){
+   ) payable external creationFee(getValidatorCreationCollateralization()) newAddress{
       
         users[msg.sender] = User({
          account_type: "validator",
          government_id: _government_id,
          name: _name,
-         home_address: _home_address
+         home_address: _home_address,
+         is_created: true
       });
    }
 
@@ -133,6 +137,11 @@ contract DAORealEstate is Ownable {
    modifier onlyInvestor {
       string memory account_type = users[msg.sender].account_type;
       require(keccak256(abi.encodePacked(account_type)) == "investor");
+      _;
+   }
+
+   modifier newAddress(){
+      require(users[msg.sender].is_created == false,"Account already created!");
       _;
    }
 
