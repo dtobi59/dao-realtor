@@ -9,7 +9,7 @@ import "./DaoRealToken.sol";
 
 contract DAORealEstate is Ownable {
    DaoRealToken private dao_real_token;
-   //PriceConsumerV3 private avax_oracle;
+   PriceConsumerV3 private matic_oracle;
  
     struct Property{
         uint id;
@@ -41,10 +41,18 @@ contract DAORealEstate is Ownable {
    constructor (uint _developer_fees, uint _validator_fees) {
        developer_fees = _developer_fees; //WEI
        validator_fees = _validator_fees; //WEI
+
+       matic_oracle = PriceConsumerV3(0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada);
    }
 
 
-   function getDeveloperCreationFees() public returns ( uint d ){
+   function gemmi() public returns  ( int ) { 
+      return matic_oracle.getLatestPrice();
+
+   }
+
+
+   function getDeveloperCreationFees() public returns ( uint ){
       return developer_fees;
    }
 
