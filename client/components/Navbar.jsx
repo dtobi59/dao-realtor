@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 
 const NavbarItem = ({ title, classProps }) => {
-  return <li className={`block rounded px-2 py-1 cursor-pointer hover:bg-[#2546bd] ${classProps}`}>{title}</li>;
+  const url = title === "Home" ? '' : title.split(" ").join("").toLowerCase();
+  return (
+    <li className={`block rounded px-2 py-1 cursor-pointer hover:bg-[#2546bd] ${classProps}`}>
+      <a href={`/${url}`}>  {title} </a>
+    </li>
+  );
 };
 
 const Navbar = () => {
@@ -30,7 +35,7 @@ const Navbar = () => {
       </div>
       <div className={`px-4 pt-2 pb-4 md:pb-0 md:flex md:p-0 ${isOpen ? "block" : "hidden"}`}>
         <ul className="text-white md:flex list-none flex-row justify-between items-center flex-initial">
-          {["Home", "Amenities", "Floor Plans", "Wallets", "Contact"].map(
+          {["Home", "Amenities", "Floor Plans", "Home Listings", "Wallets", "Contact"].map(
             (item, index) => (
               <NavbarItem key={item + index} title={item} />
             )

@@ -1,0 +1,30 @@
+{
+  "homes": [
+    {
+      "title": "Home 1",
+      "description": "Home 1",
+      "beds": 4,
+      "baths": 3.5,
+      "area": "2,877 sq ft",
+      "price": "$1,200,000",
+      "garage": "2 cars",
+      "address": "1234 Main St",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10001"
+    },
+    {
+      "title": "Home 2",
+      "description": "Home 2",
+      "beds": 5,
+      "baths": 4,
+      "area": "3,721 sq ft",
+      "price": "$1,800,000",
+      "garage": "3 car",
+      "address": "5678 Another St",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10001"
+    }
+  ]
+}
