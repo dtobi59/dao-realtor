@@ -15,7 +15,7 @@ async function main() {
 
   // We get the contract to deploy
   const DAORealEstate = await hre.ethers.getContractFactory("DAORealEstate");
-  const realEstate = await DAORealEstate.deploy("Hello, Hardhat!");
+  const realEstate = await DAORealEstate.deploy(5000,20000);
 
   await realEstate.deployed();
 

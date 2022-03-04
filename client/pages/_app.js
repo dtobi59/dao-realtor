@@ -3,8 +3,10 @@ import { TransactionProvider } from "../context/TransactionContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-      <Component {...pageProps} />
-  );
+    <TransactionProvider>
+       <Component {...pageProps} />
+    </TransactionProvider>
+  )
 }
 
 export default MyApp;

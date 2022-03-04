@@ -4,8 +4,6 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./PriceConsumerV3.sol";
 import "./DaoRealToken.sol";
- 
-
 
 contract DAORealEstate is Ownable {
    DaoRealToken private dao_real_token;

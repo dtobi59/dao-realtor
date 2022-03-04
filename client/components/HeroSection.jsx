@@ -1,17 +1,15 @@
 import React, {useContext} from 'react';
-// import {TransactionContext} from '../context/TransactionContext'
+import {TransactionContext} from '../context/TransactionContext'
 
 const commonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 
 const HeroSection = () => {
-    // const { value } = useContext(TransactionContext);
-    //     console.log(value)
+  const { connectWallet, currentAccount } = useContext(TransactionContext)
 
 
-    const connectWallet = () => {
-        
-    }
+
+  
 
     const handleSubmit = () => {
     }
@@ -30,8 +28,9 @@ const HeroSection = () => {
           </p>
           <button
             className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-                      type="button"
-                    //   onclick={}
+            type="button"
+            onClick={() => connectWallet()}
+                    
           >
             <p className="text-white text-base font-semibold">Connect Wallet</p>
           </button>
