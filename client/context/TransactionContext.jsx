@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-export const TransactionContext = React.createContext();
+// export const TransactionContext = React.createContext();
 
-const { ethereum } = window;
+// const { ethereum } = window;
 
-const getEthereumContract = () => {
-  const provider = new ethers.providers.Web3Provider(ethereum);
-  const signer = provider.getSigner();
-  const transactionContract = new ethers.Contract(signer);
+// const getEthereumContract = () => {
+//   const provider = new ethers.providers.Web3Provider(ethereum);
+//   const signer = provider.getSigner();
+//   const transactionContract = new ethers.Contract(signer);
 
-  console.log({ provider, signer, transactionContract });
-};
+//   console.log({ provider, signer, transactionContract });
+// };
 
 
 export const TransactionProvider = ({ children }) => {
