@@ -1,4 +1,4 @@
-pragma solidity >=0.7.0 <0.9.0;
+pragma solidity ^0.8.4;
  
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -53,6 +53,7 @@ contract DAORealEstate is Ownable {
 
 
    function getDeveloperCreationFees() public returns ( uint ){
+      
       return developer_fees;
    }
 
