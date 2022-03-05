@@ -48,7 +48,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
     }
 
     const handleDataBeforeSendingToBlockchain = async () => {
-        const cid = await storeFiles(files);
+        const image_hash = await storeFiles(files);
         const descriptionString = JSON.stringify(description);
         const data = {
             price,
@@ -56,7 +56,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
             description: descriptionString,
             longitude,
             latitude,
-            cid
+            image_hash
         }
         return data;
     }
@@ -68,8 +68,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
             const response = await handleDataBeforeSendingToBlockchain();
             if (response) {
                 console.log("success", response);
-                const createPropertyOnChain = await createProperty(response);
-                console.log("createPropertyOnChain", createPropertyOnChain);
+                createProperty(response);
                 setLoading(false);
                 clearForm();
             } else {

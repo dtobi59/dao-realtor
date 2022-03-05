@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import NextLink from 'next/link';
+import React, { useState } from 'react';
 // import Link from 'next/link';
 
 const NavbarItem = ({ title, classProps }) => {
@@ -42,14 +42,13 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={`px-4 pt-2 pb-4 md:pb-0 md:flex md:p-0 ${
-          isOpen ? "block" : "hidden"
-        }`}
+        className={`px-4 pt-2 pb-4 md:pb-0 md:flex md:p-0 ${isOpen ? "block" : "hidden"
+          }`}
       >
         <ul className="text-white md:flex list-none flex-row justify-between items-center flex-initial">
           {[
-            "Amenities",
-            "Floor Plans",
+            "Home",
+            "Project Submission",
             "Home Listings",
             "Wallets",
             "Contact",
