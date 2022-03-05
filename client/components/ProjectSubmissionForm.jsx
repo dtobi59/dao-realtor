@@ -68,11 +68,17 @@ export default function ProjectSubmissionForm({ setLoading }) {
             const response = await handleDataBeforeSendingToBlockchain();
             if (response) {
                 console.log("success", response);
-                createProperty(response);
-                setLoading(false);
-                clearForm();
-            } else {
-                console.log("error");
+                try {
+                    const createPropertyOnChain = await createProperty(response);
+                    if (createPropertyOnChain) {
+                        setLoading(false);
+                        return clearForm();
+                    }
+                } catch (error) {
+                    setLoading(false);
+                    console.error(error);
+                    alert("Error: Only Developers can create properties.");
+                }
             }
         }
     }
