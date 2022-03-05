@@ -1,35 +1,44 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from "react";
-import { contractABI, contractAddress } from '../lib/constants';
+import { contractABI, contractAddress } from "../lib/constants";
 
 export const TransactionContext = React.createContext();
 
-let eth
+let eth;
 
-if (typeof window !== 'undefined') {
-  eth = window.ethereum
+if (typeof window !== "undefined") {
+  eth = window.ethereum;
 }
 
 const getEthereumContract = () => {
-  const provider = new ethers.providers.Web3Provider(ethereum)
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const signer = provider.getSigner();
   const transactionContract = new ethers.Contract(
     contractAddress,
     contractABI,
-    signer,
-  )
+    signer
+  );
 
-  return transactionContract
-}
-
+  return transactionContract;
+};
 
 export const TransactionProvider = ({ children }) => {
-  const [currentAccount, setCurrentAccount] = useState()
+  const [currentAccount, setCurrentAccount] = useState();
+  const [formData, setFormData] = useState({
+    officialName: "",
+    governmentId: "",
+    address: "",
+    walletAddress: "",
+  });
+  const handleChange = (e, name) => {
+    setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  };
+
 
   const saveData = async (data) => {
     //todo: implement sanity
     return "657457853hjf7823hjfvd";
-  }
+  };
 
   const createAccount = async () => {
     //show dialog to enter details
@@ -37,35 +46,34 @@ export const TransactionProvider = ({ children }) => {
       name: "",
       govt_id: "",
       address: "",
-      wallet_address: currentAccount
-    }
+      wallet_address: currentAccount,
+    };
 
     const kyc_hash = saveData(data);
 
     if (is_saved) {
       //call smart function
     }
-
-  }
+  };
   /**
-* Checks if MetaMask is installed and an account is connected
-* @param {*} metamask Injected MetaMask code from the browser
-* @returns
-*/
+   * Checks if MetaMask is installed and an account is connected
+   * @param {*} metamask Injected MetaMask code from the browser
+   * @returns
+   */
   const checkIfWalletIsConnected = async (metamask = eth) => {
     try {
-      if (!metamask) return alert('Please install metamask ')
+      if (!metamask) return alert("Please install metamask ");
 
-      const accounts = await metamask.request({ method: 'eth_accounts' })
+      const accounts = await metamask.request({ method: "eth_accounts" });
 
       if (accounts.length) {
-        setCurrentAccount(accounts[0])
+        setCurrentAccount(accounts[0]);
       }
     } catch (error) {
-      console.error(error)
-      throw new Error('No ethereum object.')
+      console.error(error);
+      throw new Error("No ethereum object.");
     }
-  }
+  };
 
   const createProperty = async (data) => {
     const transactionContract = getEthereumContract();
@@ -78,34 +86,36 @@ export const TransactionProvider = ({ children }) => {
    * @param {*} metamask Injected MetaMask code from the browser
    */
   const connectWallet = async (metamask = eth) => {
-
-
-
     try {
       console.log("Connectin metamask!");
-      if (!metamask) return alert('Please install metamask ')
+      if (!metamask) return alert("Please install metamask ");
 
-      const accounts = await metamask.request({ method: 'eth_requestAccounts' })
+      const accounts = await metamask.request({
+        method: "eth_requestAccounts",
+      });
 
-      setCurrentAccount(accounts[0])
+      setCurrentAccount(accounts[0]);
     } catch (error) {
-      console.error(error)
-      throw new Error('No ethereum object.')
+      console.error(error);
+      throw new Error("No ethereum object.");
     }
-  }
+  };
 
   useEffect(() => {
-    checkIfWalletIsConnected()
-  }, [])
-
+    checkIfWalletIsConnected();
+  }, []);
 
   return (
-    <TransactionContext.Provider value={{
-      connectWallet,
-      currentAccount,
-      createProperty
-    }}>
+    <TransactionContext.Provider
+      value={{
+        connectWallet,
+        currentAccount,
+        formData,
+        handleChange,
+        createProperty
+      }}
+    >
       {children}
     </TransactionContext.Provider>
-  )
-}
+  );
+};
