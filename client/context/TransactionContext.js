@@ -40,19 +40,44 @@ export const TransactionProvider = ({ children }) => {
     return "657457853hjf7823hjfvd";
   };
 
-  const createAccount = async () => {
+  const createInvestorAccount = async (metamask = eth, connectedAccount = currentAccount,) => {
     //show dialog to enter details
     let data = {
-      name: "",
-      govt_id: "",
-      address: "",
+      name: "David",
+      govt_id: "342847284",
+      address: "Road 9, Nigeria",
       wallet_address: currentAccount,
     };
 
     const kyc_hash = saveData(data);
 
-    if (is_saved) {
-      //call smart function
+    if (kyc_hash) {
+      if (!metamask) return alert('Please install metamask ')
+      const transactionContract = getEthereumContract()
+      const parsedAmount = ethers.utils.parseEther("0")
+
+      // var _params = [
+      //   {
+      //     from: connectedAccount,
+      //     to: "",
+      //     gas: '0x7EF40', // 520000 Gwei
+      //     value: parsedAmount._hex,
+      //   },
+      // ]
+
+      // await metamask.request({
+      //   method: 'eth_sendTransaction',
+      //   params: _params
+      // })
+
+      const transactionHash = await transactionContract.createInvestor(kyc_hash)
+
+
+      await transactionHash.wait()
+
+      alert("Account created onchain");
+
+
     }
   };
   /**
@@ -121,6 +146,7 @@ export const TransactionProvider = ({ children }) => {
         connectWallet,
         currentAccount,
         formData,
+        createInvestorAccount,
         handleChange,
         createProperty
       }}
