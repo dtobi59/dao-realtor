@@ -51,9 +51,16 @@ export default function HomeListing({ data, id }) {
                                         <p className="text-center">{data.area} sqft</p>
                                         <p className="text-center">{data.price}</p>
                                     </div>
-                                    <button type="button" className="bg-[#2952e3] block rounded-full cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
-                                        Invest
-                                    </button>
+                                    <div>
+                                        <button type="button" className="bg-[#2952e3] block rounded-full cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
+                                            Validate
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button type="button" className="bg-[#2952e3] block rounded-full cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
+                                            Invest
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <hr className="bg-gray-400 border-t w-1/2" />

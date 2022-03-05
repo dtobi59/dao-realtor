@@ -1,5 +1,5 @@
+import { ethers } from 'ethers';
 import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
 import { contractABI, contractAddress } from "../lib/constants";
 
 export const TransactionContext = React.createContext();
@@ -24,16 +24,16 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState();
-      const [formData, setFormData] = useState({
-        officialName: "",
-        governmentId: "",
-        address: "",
-        walletAddress: "",
-      });
-      const handleChange = (e, name) => {
-        setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  const [formData, setFormData] = useState({
+    officialName: "",
+    governmentId: "",
+    address: "",
+    walletAddress: "",
+  });
+  const handleChange = (e, name) => {
+    setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
-  
+
 
   const saveData = async (data) => {
     //todo: implement sanity
@@ -100,6 +100,12 @@ export const TransactionProvider = ({ children }) => {
     }
   };
 
+  const createProperty = async (data) => {
+    const transactionContract = getEthereumContract();
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.cid);
+    console.log(tx);
+  };
+
   /**
    * Prompts user to connect their MetaMask wallet
    * @param {*} metamask Injected MetaMask code from the browser
@@ -132,6 +138,7 @@ export const TransactionProvider = ({ children }) => {
         formData,
         createInvestorAccount,
         handleChange,
+        createProperty
       }}
     >
       {children}

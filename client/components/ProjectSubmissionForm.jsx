@@ -2,8 +2,10 @@
 // Allows a developer to submit a project to the platform
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { TransactionContext } from '../context/TransactionContext';
 import { storeFiles } from "../lib/web3storage";
+
 
 // Required Fields: 
 // Name: Project Name
@@ -23,6 +25,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [files, setFiles] = useState([]);
+    const { createProperty } = useContext(TransactionContext);
 
     const handleFileChange = (e) => {
         if (!e.target.files) { return fileInputRef.current.value = null; };
@@ -46,12 +49,13 @@ export default function ProjectSubmissionForm({ setLoading }) {
 
     const handleDataBeforeSendingToBlockchain = async () => {
         const cid = await storeFiles(files);
+        const descriptionString = JSON.stringify(description);
         const data = {
-            name,
-            description,
             price,
-            latitude,
+            name,
+            description: descriptionString,
             longitude,
+            latitude,
             cid
         }
         return data;
@@ -64,8 +68,9 @@ export default function ProjectSubmissionForm({ setLoading }) {
             const response = await handleDataBeforeSendingToBlockchain();
             if (response) {
                 console.log("success", response);
+                const createPropertyOnChain = await createProperty(response);
+                console.log("createPropertyOnChain", createPropertyOnChain);
                 setLoading(false);
-                // Push to Blockchain
                 clearForm();
             } else {
                 console.log("error");
