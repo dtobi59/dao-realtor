@@ -1,6 +1,6 @@
+import { ethers } from 'ethers';
 import React, { useEffect, useState } from "react";
-import { ethers } from 'ethers'
-import { contractABI, contractAddress } from '../lib/constants'
+import { contractABI, contractAddress } from '../lib/constants';
 
 export const TransactionContext = React.createContext();
 
@@ -11,47 +11,47 @@ if (typeof window !== 'undefined') {
 }
 
 const getEthereumContract = () => {
-    const provider = new ethers.providers.Web3Provider(ethereum)
-    const signer = provider.getSigner()
-    const transactionContract = new ethers.Contract(
-      contractAddress,
-      contractABI,
-      signer,
-    )
-  
-    return transactionContract
-  }
+  const provider = new ethers.providers.Web3Provider(ethereum)
+  const signer = provider.getSigner()
+  const transactionContract = new ethers.Contract(
+    contractAddress,
+    contractABI,
+    signer,
+  )
+
+  return transactionContract
+}
 
 
 export const TransactionProvider = ({ children }) => {
-    const [currentAccount, setCurrentAccount] = useState()
+  const [currentAccount, setCurrentAccount] = useState()
 
-  const saveData = async(data)=>{
+  const saveData = async (data) => {
     //todo: implement sanity
     return "657457853hjf7823hjfvd";
   }
 
-  const createAccount = async() => {
+  const createAccount = async () => {
     //show dialog to enter details
     let data = {
       name: "",
       govt_id: "",
       address: "",
       wallet_address: currentAccount
-   }
+    }
 
-   const kyc_hash = saveData(data);
-   
-   if(is_saved){
-     //call smart function
-   }
+    const kyc_hash = saveData(data);
+
+    if (is_saved) {
+      //call smart function
+    }
 
   }
-      /**
-   * Checks if MetaMask is installed and an account is connected
-   * @param {*} metamask Injected MetaMask code from the browser
-   * @returns
-   */
+  /**
+* Checks if MetaMask is installed and an account is connected
+* @param {*} metamask Injected MetaMask code from the browser
+* @returns
+*/
   const checkIfWalletIsConnected = async (metamask = eth) => {
     try {
       if (!metamask) return alert('Please install metamask ')
@@ -66,6 +66,12 @@ export const TransactionProvider = ({ children }) => {
       throw new Error('No ethereum object.')
     }
   }
+
+  const createProperty = async (data) => {
+    const transactionContract = getEthereumContract();
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.cid);
+    console.log(tx);
+  };
 
   /**
    * Prompts user to connect their MetaMask wallet
@@ -93,12 +99,13 @@ export const TransactionProvider = ({ children }) => {
   }, [])
 
 
-    return (
-        <TransactionContext.Provider  value={{
-        connectWallet,
-        currentAccount,
-      }}>
-            {children}
-        </TransactionContext.Provider>
-    )
+  return (
+    <TransactionContext.Provider value={{
+      connectWallet,
+      currentAccount,
+      createProperty
+    }}>
+      {children}
+    </TransactionContext.Provider>
+  )
 }
