@@ -26,6 +26,27 @@ const getEthereumContract = () => {
 export const TransactionProvider = ({ children }) => {
     const [currentAccount, setCurrentAccount] = useState()
 
+  const saveData = async(data)=>{
+    //todo: implement sanity
+    return "657457853hjf7823hjfvd";
+  }
+
+  const createAccount = async() => {
+    //show dialog to enter details
+    let data = {
+      name: "",
+      govt_id: "",
+      address: "",
+      wallet_address: currentAccount
+   }
+
+   const kyc_hash = saveData(data);
+   
+   if(is_saved){
+     //call smart function
+   }
+
+  }
       /**
    * Checks if MetaMask is installed and an account is connected
    * @param {*} metamask Injected MetaMask code from the browser
@@ -51,7 +72,11 @@ export const TransactionProvider = ({ children }) => {
    * @param {*} metamask Injected MetaMask code from the browser
    */
   const connectWallet = async (metamask = eth) => {
+
+
+
     try {
+      console.log("Connectin metamask!");
       if (!metamask) return alert('Please install metamask ')
 
       const accounts = await metamask.request({ method: 'eth_requestAccounts' })
