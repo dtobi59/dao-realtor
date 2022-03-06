@@ -4,9 +4,11 @@ import Navbar from './Navbar';
 
 const Layout = ({ children }) => {
   return (
-    <div className="bg-black h-screen items-center justify-center text-white">
+    <div className="bg-black text-white">
       <Navbar />
-      {children}
+      <div className="h-screen items-center justify-center ">
+        {children}
+      </div>
       <Footer />
     </div>
   );

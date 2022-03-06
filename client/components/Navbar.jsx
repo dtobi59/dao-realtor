@@ -55,7 +55,7 @@ const Navbar = () => {
           ))}
           <a href="/projectsubmission">
             <li className="bg-[#2952e3] block rounded-full cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
-              Login
+              New Project
             </li>
           </a>
         </ul>
