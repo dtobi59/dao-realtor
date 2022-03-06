@@ -19,13 +19,12 @@ const HeroSection = () => {
             <br /> for Real estate investment.
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae
-            numquam beatae soluta?
+            Changing the concept of Real estate investment for the better! 
           </p>
 
           {/* Checks if account is connected or not*/}
 
-          
+
           {currentAccount ? (
             <Modal />
           ) : (

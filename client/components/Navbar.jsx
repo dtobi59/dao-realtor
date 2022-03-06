@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
-// import Link from 'next/link';
+
 
 const NavbarItem = ({ title, classProps }) => {
   const url = title === "Home" ? '' : title.split(" ").join("").toLowerCase();
   return (
-    <li className={`block rounded px-2 py-1 cursor-pointer hover:bg-[#2546bd] ${classProps}`}>
+    <li className={`block rounded px-2 py-1 mx-4 cursor-pointer hover:bg-[#2546bd] ${classProps}`}>
       <a href={`/${url}`}>  {title} </a>
     </li>
   );
@@ -48,15 +48,15 @@ const Navbar = () => {
       >
         <ul className="text-white md:flex list-none flex-row justify-between items-center flex-initial">
           {[
-            "Amenities",
-            "Floor Plans",
+            "About Us",
             "Home Listings",
+            "Floor Plans",
             "Wallets",
             "Contact",
           ].map((item, index) => (
             <NavbarItem key={item + index} title={item} />
           ))}
-          <li className="bg-[#2952e3] block rounded-full cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
+          <li className="bg-[#2952e3] block rounded-full cursor-pointer px-12 py-2 hover:bg-[#2546bd] mx-16">
             Login
           </li>
         </ul>
