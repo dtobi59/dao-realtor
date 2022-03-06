@@ -20,24 +20,60 @@ export default function ListingImages({ id, data }) {
     const floorplanAImg = `home_floorplan_${id}a.jpeg`;
 
     return (
-        <div className="flex flex-col justify-center gap-4 px-3 py-5 md:flex-row">
-            <div className="md:max-w-[550px] w-full">
-                <Image objectFit="cover" src={images[frontImg]} alt={data.title} />
+      <section class="overflow-hidden">
+        <div class="container px-5 py-2 mx-auto lg:pt-24 lg:px-32">
+          <div class="flex flex-wrap -m-1 md:-m-2">
+            <div class="flex flex-wrap w-1/2">
+              <div className="w-full p-1 md:p-2">
+                <Image
+                  width={1000}
+                  height={680}
+                  src={images[frontImg]}
+                  alt={data.title}
+                  className="block object-cover object-center w-full h-full rounded-tl-2xl rounded-bl-2xl opacity-100 hover:opacity-90 cursor-pointer"
+                />
+              </div>
             </div>
-            <div className="grid grid-cols-4 gap-4 place-content-center md:grid-cols-2">
-                <div className="md:max-w-[250px] h-[150px]">
-                    <Image objectFit="cover" src={images[interiorImg]} alt={data.title} />
-                </div>
-                <div className="max-w-[250px]">
-                    <Image objectFit="cover" src={images[bathImg]} alt={data.title} />
-                </div>
-                <div className="max-w-[250px]">
-                    <Image objectFit="cover" src={images[floorplanImg]} alt={data.title} />
-                </div>
-                <div className="max-w-[250px]">
-                    <Image objectFit="cover" src={images[floorplanAImg]} alt={data.title} />
-                </div>
+            <div class="flex flex-wrap w-1/2">
+              <div class="w-1/2 p-1 md:p-2">
+                <Image
+                  src={images[interiorImg]}
+                  width={300}
+                  height={200}
+                  alt={data.title}
+                  className="block object-cover object-center w-full h-full opacity-100 hover:opacity-90 cursor-pointer"
+                />
+              </div>
+              <div class="w-1/2 p-1 md:p-2">
+                <Image
+                  src={images[bathImg]}
+                  width={300}
+                  height={200}
+                  alt={data.title}
+                  className="block object-cover object-center w-full h-full rounded-tr-2xl opacity-100 hover:opacity-90 cursor-pointer"
+                />
+              </div>
+              <div class="w-1/2 p-1 md:p-2">
+                <Image
+                  src={images[floorplanImg]}
+                  width={300}
+                  height={200}
+                  alt={data.title}
+                  className="block object-cover object-center w-full h-full  opacity-100 hover:opacity-90 cursor-pointer"
+                />
+              </div>
+              <div class="w-1/2 p-1 md:p-2">
+                <Image
+                  src={images[floorplanAImg]}
+                  width={300}
+                  height={200}
+                  alt={data.title}
+                  className="block object-cover object-center w-full h-full rounded-br-2xl opacity-100 hover:opacity-90 cursor-pointer"
+                />
+              </div>
             </div>
+          </div>
         </div>
-    )
+      </section>
+    );
 }
