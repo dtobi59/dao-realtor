@@ -13,7 +13,7 @@
       "price": "1200000",
       "longitude": "-122.4194155",
       "latitude": "37.7749295",
-      "image_hash": ""
+      "image_hash": "bafybeifhcswep4ysqbwtjnueqeh3orlvcuzr6q5jemt5pie67y77zwjeoe"
     },
     {
       "title": "Entire rental unit hosted by Bassem",
@@ -28,7 +28,22 @@
       "price": "1800000",
       "longitude": "-122.4194155",
       "latitude": "37.7749295",
-      "image_hash": ""
+      "image_hash": "bafybeig337cho6yst3uo3t5ewqt2vsju5r6yevud32eu2u6x2t25ysmtry"
+    },
+    {
+      "title": "Beautiful house in the city",
+      "description": {
+        "description": "This is a description of the home 2",
+        "bedrooms": "4",
+        "bathrooms": "2.5",
+        "area": "2500",
+        "address": "167577 N Boulevard, Tampa, FL 33578",
+        "county": "United States"
+      },
+      "price": "800000",
+      "longitude": "-122.4194155",
+      "latitude": "37.7749295",
+      "image_hash": "bafybeihp6nzglqqwwolio2oqyvwqdjiozryc5jmpvzvewdvagp4ws35v7a"
     }
   ]
 }
