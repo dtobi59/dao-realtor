@@ -72,7 +72,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
             if (response) {
                 console.log("success", response);
                 try {
-                    const createPropertyOnChain = true // await createProperty(response);
+                    const createPropertyOnChain = await createProperty(response);
                     if (createPropertyOnChain) {
                         setLoading(false);
                         return clearForm();

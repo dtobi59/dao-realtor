@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from "react";
 import { contractABI, contractAddress } from "../lib/constants";
-import { client } from '../lib/sanityClient'
+import { client } from '../lib/sanityClient';
 const generated_hash = require("crypto")
 
 export const TransactionContext = React.createContext();
@@ -35,17 +35,17 @@ export const TransactionProvider = ({ children }) => {
 
   useEffect(() => {
     if (!currentAccount) return
-    ;(async () => {
-       console.log("Account changed! reload page...")
+      ; (async () => {
+        console.log("Account changed! reload page...")
 
-    })()
+      })()
   }, [currentAccount])
 
   const saveData = async (data) => {
     //todo: implement sanity
     const _hash = generated_hash.createHash('sha256')
-    .update(data, 'utf8')
-    .digest('hex')
+      .update(data, 'utf8')
+      .digest('hex')
 
     const txDoc = {
       _type: 'users',
@@ -88,26 +88,25 @@ export const TransactionProvider = ({ children }) => {
       wallet_address: currentAccount,
     };
 
-    const kyc_hash = saveData(data);
+    const kyc_hash = saveData(_data);
 
     if (kyc_hash) {
       if (!metamask) return alert('Please install metamask ')
       const transactionContract = getEthereumContract()
 
       const parsedAmount = ethers.utils.parseEther("0.1")
-      
-      var _params = 
-        {
-          value: parsedAmount
-        };
-      
+
+      var _params =
+      {
+        value: parsedAmount
+      };
 
       // await metamask.request({
       //   method: 'eth_sendTransaction',
       //   params: _params
       // })
 
-      const transactionHash = await transactionContract.createValidator(kyc_hash,_params)
+      const transactionHash = await transactionContract.createDeveloper(kyc_hash, _params)
 
 
       await transactionHash.wait()
@@ -128,7 +127,7 @@ export const TransactionProvider = ({ children }) => {
       wallet_address: currentAccount,
     };
 
-    const kyc_hash = saveData(data);
+    const kyc_hash = saveData(_data);
 
     if (kyc_hash) {
       if (!metamask) return alert('Please install metamask ')
@@ -147,13 +146,13 @@ export const TransactionProvider = ({ children }) => {
       //   params: _params
       // })
       const parsedAmount = ethers.utils.parseEther("0.1")
-      
-      var _params = 
-        {
-          value: parsedAmount
-        };
 
-      const transactionHash = await transactionContract.createValidator(kyc_hash,_params)
+      var _params =
+      {
+        value: parsedAmount
+      };
+
+      const transactionHash = await transactionContract.createValidator(kyc_hash, _params)
 
 
       await transactionHash.wait()
@@ -221,10 +220,13 @@ export const TransactionProvider = ({ children }) => {
 
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
+      } else {
+        alert("Please connect to your wallet");
       }
     } catch (error) {
       console.error(error);
-      throw new Error("No ethereum object.");
+      setCurrentAccount("");
+      alert("No ethereum object.");
     }
   };
 
@@ -233,9 +235,11 @@ export const TransactionProvider = ({ children }) => {
 
     const transactionContract = getEthereumContract();
 
-    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, { gasLimit: 3000000 });
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash);
+
     console.log("tx", tx.hash);
     const reciept = await tx.wait();
+
     if (!reciept.hash) {
       alert("Transaction Failed");
       return false;
