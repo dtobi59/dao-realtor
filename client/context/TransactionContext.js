@@ -1,6 +1,8 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from "react";
 import { contractABI, contractAddress } from "../lib/constants";
+import { client } from '../lib/sanityClient'
+generated_hash = require("crypto")
 
 export const TransactionContext = React.createContext();
 
@@ -37,7 +39,35 @@ export const TransactionProvider = ({ children }) => {
 
   const saveData = async (data) => {
     //todo: implement sanity
-    return "657457853hjf7823hjfvd";
+    const _hash = generated_hash.createHash('sha256')
+    .update(data, 'utf8')
+    .digest('hex')
+
+    // const txDoc = {
+    //   _type: 'users',
+    //   _id: _hash,
+    //   fromAddress: fromAddress,
+    //   toAddress: toAddress,
+    //   timestamp: new Date(Date.now()).toISOString(),
+    //   txHash: txHash,
+    //   amount: parseFloat(amount),
+    // }
+
+    // await client.createIfNotExists(txDoc)
+
+    // await client
+    //   .patch(currentAccount)
+    //   .setIfMissing({ transactions: [] })
+    //   .insert('after', 'transactions[-1]', [
+    //     {
+    //       _key: txHash,
+    //       _ref: txHash,
+    //       _type: 'reference',
+    //     },
+    //   ])
+    //   .commit()
+
+    return _hash
   };
 
   const createAccount = async(data) => {
