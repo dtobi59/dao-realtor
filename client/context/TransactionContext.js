@@ -12,6 +12,12 @@ if (typeof window !== "undefined") {
   eth = window.ethereum;
 }
 
+function handleAccountsChanged(accounts) {
+  // 
+}
+
+eth.on('accountsChanged', handleAccountsChanged)
+
 const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
