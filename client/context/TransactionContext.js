@@ -100,10 +100,21 @@ export const TransactionProvider = ({ children }) => {
     }
   };
 
-  const createProperty = async (data) => {
+  const createProperty = async (data, metamask = eth) => {
+    if (!metamask) return alert('Please install metamask ')
+
     const transactionContract = getEthereumContract();
-    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.cid);
-    console.log(tx);
+
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, { gasLimit: 3000000 });
+    console.log("tx", tx.hash);
+    const reciept = await tx.wait();
+    if (!reciept.hash) {
+      alert("Transaction Failed");
+      return false;
+    }
+    console.log("reciept", reciept);
+    alert("Transaction Successful");
+    return true;
   };
 
   /**

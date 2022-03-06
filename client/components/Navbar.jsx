@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import NextLink from 'next/link';
+import React, { useState } from 'react';
 
 
 const NavbarItem = ({ title, classProps }) => {
@@ -47,18 +47,14 @@ const Navbar = () => {
         }`}
       >
         <ul className="text-white md:flex list-none flex-row justify-between items-center flex-initial">
-          {[
-            "About Us",
-            "Home Listings",
-            "Floor Plans",
-            "Wallets",
-            "Contact",
-          ].map((item, index) => (
+          {["Home", "Home Listings", "About"].map((item, index) => (
             <NavbarItem key={item + index} title={item} />
           ))}
-          <li className="bg-[#2952e3] block rounded-full cursor-pointer px-12 py-2 hover:bg-[#2546bd] mx-16">
-            Login
-          </li>
+          <a href="/projectsubmission">
+            <li className="bg-[#2952e3] block rounded-full cursor-pointer px-12 py-2 hover:bg-[#2546bd] mx-16">
+              Login
+            </li>
+          </a>
         </ul>
       </div>
     </nav>

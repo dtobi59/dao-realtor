@@ -48,7 +48,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
     }
 
     const handleDataBeforeSendingToBlockchain = async () => {
-        const cid = await storeFiles(files);
+        const image_hash = await storeFiles(files);
         const descriptionString = JSON.stringify(description);
         const data = {
             price,
@@ -56,7 +56,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
             description: descriptionString,
             longitude,
             latitude,
-            cid
+            image_hash
         }
         return data;
     }
@@ -68,12 +68,17 @@ export default function ProjectSubmissionForm({ setLoading }) {
             const response = await handleDataBeforeSendingToBlockchain();
             if (response) {
                 console.log("success", response);
-                const createPropertyOnChain = await createProperty(response);
-                console.log("createPropertyOnChain", createPropertyOnChain);
-                setLoading(false);
-                clearForm();
-            } else {
-                console.log("error");
+                try {
+                    const createPropertyOnChain = await createProperty(response);
+                    if (createPropertyOnChain) {
+                        setLoading(false);
+                        return clearForm();
+                    }
+                } catch (error) {
+                    setLoading(false);
+                    console.error(error);
+                    alert("Error: Only Developers can create properties.");
+                }
             }
         }
     }

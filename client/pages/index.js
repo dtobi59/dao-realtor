@@ -1,22 +1,17 @@
-import Head from "next/head";
-import { Layout, HeroSection } from '../components';
-
-
+import { HeroSection, Layout } from '../components';
+import Header from '../components/Header';
 
 export default function Home() {
   return (
     <div className="bg-black flex flex-col  min-h-screen">
-      <Head>
-        <title>DOA-REALTOR</title>
-        <meta name="description" content="Team dao-realtor" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Header
+        title="A web3 real estate investment platform."
+        description="A real estate platform that is transparent in its transaction while allowing individuals to participate in the investment of real estate projects through fractional investment."
+      />
 
-      <div className="flex-grow">
-        <Layout>
-          <HeroSection />
-        </Layout>
-      </div>
+      <Layout>
+        <HeroSection />
+      </Layout>
     </div>
   );
 }
