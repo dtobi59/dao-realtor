@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import React, { useEffect, useState } from "react";
 import { contractABI, contractAddress } from "../lib/constants";
 import { client } from '../lib/sanityClient'
-generated_hash = require("crypto")
+const generated_hash = require("crypto")
 
 export const TransactionContext = React.createContext();
 
@@ -33,29 +33,18 @@ export const TransactionProvider = ({ children }) => {
     .update(data, 'utf8')
     .digest('hex')
 
-    // const txDoc = {
-    //   _type: 'users',
-    //   _id: _hash,
-    //   fromAddress: fromAddress,
-    //   toAddress: toAddress,
-    //   timestamp: new Date(Date.now()).toISOString(),
-    //   txHash: txHash,
-    //   amount: parseFloat(amount),
-    // }
+    const txDoc = {
+      _type: 'users',
+      _id: _hash,
+      name: data.officialName,
+      address: data.currentAccount,
+      account_type: data.accountType,
+      government_id: data.governmentId,
+      home_address: data.streetAddress,
+    }
 
-    // await client.createIfNotExists(txDoc)
+    await client.createIfNotExists(txDoc)
 
-    // await client
-    //   .patch(currentAccount)
-    //   .setIfMissing({ transactions: [] })
-    //   .insert('after', 'transactions[-1]', [
-    //     {
-    //       _key: txHash,
-    //       _ref: txHash,
-    //       _type: 'reference',
-    //     },
-    //   ])
-    //   .commit()
 
     return _hash
   };
@@ -91,21 +80,20 @@ export const TransactionProvider = ({ children }) => {
       if (!metamask) return alert('Please install metamask ')
       const transactionContract = getEthereumContract()
 
-      const parsedAmount = ethers.utils.parseEther("5000")
-
-      var _params = [
+      const parsedAmount = ethers.utils.parseEther("0.1")
+      
+      var _params = 
         {
-          gas: '0x7EF40', // 520000 Gwei
-          value: parsedAmount._hex,
-        },
-      ]
+          value: parsedAmount
+        };
+      
 
-      await metamask.request({
-        method: 'eth_sendTransaction',
-        params: _params
-      })
+      // await metamask.request({
+      //   method: 'eth_sendTransaction',
+      //   params: _params
+      // })
 
-      const transactionHash = await transactionContract.createValidator(kyc_hash)
+      const transactionHash = await transactionContract.createValidator(kyc_hash,_params)
 
 
       await transactionHash.wait()
@@ -132,21 +120,26 @@ export const TransactionProvider = ({ children }) => {
       if (!metamask) return alert('Please install metamask ')
       const transactionContract = getEthereumContract()
 
-      const parsedAmount = ethers.utils.parseEther("15000")
 
-      var _params = [
+      // var _params = [
+      //   {
+      //     gas: '0x7EF40', // 520000 Gwei
+      //     value: parsedAmount._hex,
+      //   },
+      // ]
+
+      // await metamask.request({
+      //   method: 'eth_sendTransaction',
+      //   params: _params
+      // })
+      const parsedAmount = ethers.utils.parseEther("0.1")
+      
+      var _params = 
         {
-          gas: '0x7EF40', // 520000 Gwei
-          value: parsedAmount._hex,
-        },
-      ]
+          value: parsedAmount
+        };
 
-      await metamask.request({
-        method: 'eth_sendTransaction',
-        params: _params
-      })
-
-      const transactionHash = await transactionContract.createValidator(kyc_hash)
+      const transactionHash = await transactionContract.createValidator(kyc_hash,_params)
 
 
       await transactionHash.wait()
@@ -169,7 +162,7 @@ export const TransactionProvider = ({ children }) => {
 
     console.log(_data);
 
-    const kyc_hash = false// saveData(_data);
+    const kyc_hash = await saveData(_data);
 
     if (kyc_hash) {
       if (!metamask) return alert('Please install metamask ')

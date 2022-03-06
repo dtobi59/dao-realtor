@@ -29,16 +29,6 @@ export const userSchema = {
         type: 'string',
       },
 
-      {
-        name: 'transactions',
-        title: 'Transactions',
-        type: 'array',
-        of: [
-          {
-            type: 'reference',
-            to: [{ type: 'transactions' }],
-          },
-        ],
-      },
+
     ],
   }
