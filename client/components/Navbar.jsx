@@ -47,6 +47,7 @@ const Navbar = () => {
         }`}
       >
         <ul className="text-white md:flex list-none flex-row justify-between items-center flex-initial">
+<<<<<<< HEAD
           {[
             // "Home",
             "Amenities",
@@ -57,6 +58,13 @@ const Navbar = () => {
           ].map((item, index) => (
             <NavbarItem key={item + index} title={item} />
           ))}
+=======
+          {["Home", "Project Submission", "Home Listings", "Contact"].map(
+            (item, index) => (
+              <NavbarItem key={item + index} title={item} />
+            )
+          )}
+>>>>>>> 261b1cb831f7812c05a803b400178abc69cf4a92
           <li className="bg-[#2952e3] block rounded-full cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
             Login
           </li>
