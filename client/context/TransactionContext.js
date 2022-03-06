@@ -1,8 +1,8 @@
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { contractABI, contractAddress } from "../lib/constants";
-import { client } from '../lib/sanityClient';
-const generated_hash = require("crypto")
+import { client } from "../lib/sanityClient";
+const generated_hash = require("crypto");
 
 export const TransactionContext = React.createContext();
 
@@ -30,52 +30,55 @@ const getEthereumContract = () => {
 export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState();
   useEffect(() => {
-    if (!currentAccount) return
-      ; (async () => {
-        console.log("Account changed! reload page...")
-
-      })()
-  }, [currentAccount])
+    if (!currentAccount) return;
+    (async () => {
+      console.log("Account changed! reload page...");
+    })();
+  }, [currentAccount]);
 
   const saveData = async (data) => {
     //todo: implement sanity
-    const _hash = generated_hash.createHash('sha256')
-      .update(data, 'utf8')
-      .digest('hex')
+    const _hash = generated_hash
+      .createHash("sha256")
+      .update(data, "utf8")
+      .digest("hex");
 
     const txDoc = {
-      _type: 'users',
+      _type: "users",
       _id: _hash,
       name: data.officialName,
       address: data.currentAccount,
       account_type: data.accountType,
       government_id: data.governmentId,
       home_address: data.streetAddress,
-    }
+    };
 
-    await client.createIfNotExists(txDoc)
+    await client.createIfNotExists(txDoc);
 
-
-    return _hash
+    return _hash;
   };
 
   const createAccount = async (data) => {
     switch (data.accountType) {
       case "developer":
-        createDeveloperAccount(data)
-        break
+        createDeveloperAccount(data);
+        break;
       case "validator":
-        createValidatorAccount(data)
-        break
+        createValidatorAccount(data);
+        break;
       case "investor":
-        createInvestorAccount(data)
-        break
+        createInvestorAccount(data);
+        break;
       default:
-        alert("Invalid Account type")
+        alert("Invalid Account type");
     }
-  }
+  };
 
-  const createDeveloperAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
+  const createDeveloperAccount = async (
+    data,
+    metamask = eth,
+    connectedAccount = currentAccount
+  ) => {
     let _data = {
       name: data.officialName,
       account_type: data.accountType,
@@ -87,14 +90,13 @@ export const TransactionProvider = ({ children }) => {
     const kyc_hash = saveData(data);
 
     if (kyc_hash) {
-      if (!metamask) return alert('Please install metamask ')
-      const transactionContract = getEthereumContract()
+      if (!metamask) return alert("Please install metamask ");
+      const transactionContract = getEthereumContract();
 
       const parsedAmount = ethers.utils.parseEther("0.0001")
 
-      var _params =
-      {
-        value: parsedAmount
+      var _params = {
+        value: parsedAmount,
       };
 
       // await metamask.request({
@@ -104,17 +106,17 @@ export const TransactionProvider = ({ children }) => {
 
       const transactionHash = await transactionContract.createValidator(kyc_hash, _params)
 
-
-      await transactionHash.wait()
+      await transactionHash.wait();
 
       alert("Developer Account created onchain");
-
-
     }
-  }
+  };
 
-  const createValidatorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
-
+  const createValidatorAccount = async (
+    data,
+    metamask = eth,
+    connectedAccount = currentAccount
+  ) => {
     let _data = {
       name: data.officialName,
       account_type: data.accountType,
@@ -126,9 +128,8 @@ export const TransactionProvider = ({ children }) => {
     const kyc_hash = saveData(data);
 
     if (kyc_hash) {
-      if (!metamask) return alert('Please install metamask ')
-      const transactionContract = getEthereumContract()
-
+      if (!metamask) return alert("Please install metamask ");
+      const transactionContract = getEthereumContract();
 
       // var _params = [
       //   {
@@ -147,18 +148,22 @@ export const TransactionProvider = ({ children }) => {
         value: parsedAmount
       };
 
-      const transactionHash = await transactionContract.createValidator(kyc_hash, _params)
+      const transactionHash = await transactionContract.createValidator(
+        kyc_hash,
+        _params
+      );
 
-
-      await transactionHash.wait()
+      await transactionHash.wait();
 
       alert("Validator Account created onchain");
-
-
     }
-  }
+  };
 
-  const createInvestorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
+  const createInvestorAccount = async (
+    data,
+    metamask = eth,
+    connectedAccount = currentAccount
+  ) => {
     //show dialog to enter details
     let _data = {
       name: data.officialName,
@@ -173,9 +178,9 @@ export const TransactionProvider = ({ children }) => {
     const kyc_hash = await saveData(_data);
 
     if (kyc_hash) {
-      if (!metamask) return alert('Please install metamask ')
-      const transactionContract = getEthereumContract()
-      const parsedAmount = ethers.utils.parseEther("0")
+      if (!metamask) return alert("Please install metamask ");
+      const transactionContract = getEthereumContract();
+      const parsedAmount = ethers.utils.parseEther("0");
 
       // var _params = [
       //   {
@@ -191,14 +196,13 @@ export const TransactionProvider = ({ children }) => {
       //   params: _params
       // })
 
-      const transactionHash = await transactionContract.createInvestor(kyc_hash)
+      const transactionHash = await transactionContract.createInvestor(
+        kyc_hash
+      );
 
-
-      await transactionHash.wait()
+      await transactionHash.wait();
 
       alert("Account created onchain");
-
-
     }
   };
 
@@ -223,7 +227,7 @@ export const TransactionProvider = ({ children }) => {
   };
 
   const createProperty = async (data, metamask = eth) => {
-    if (!metamask) return alert('Please install metamask ')
+    if (!metamask) return alert("Please install metamask ");
 
     const transactionContract = getEthereumContract();
 
@@ -270,7 +274,7 @@ export const TransactionProvider = ({ children }) => {
         connectWallet,
         currentAccount,
         createAccount,
-        createProperty
+        createProperty,
       }}
     >
       {children}
