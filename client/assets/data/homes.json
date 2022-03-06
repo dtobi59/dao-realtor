@@ -10,7 +10,7 @@
         "address": "1234 Main St, New York, NY 10001",
         "county": "United States"
       },
-      "price": "1200000",
+      "price": "1,200,000",
       "longitude": "-122.4194155",
       "latitude": "37.7749295",
       "image_hash": "bafybeifhcswep4ysqbwtjnueqeh3orlvcuzr6q5jemt5pie67y77zwjeoe"
@@ -25,7 +25,7 @@
         "address": "167577 N Boulevard, Tampa, FL 33578",
         "county": "United States"
       },
-      "price": "1800000",
+      "price": "1,800,000",
       "longitude": "-122.4194155",
       "latitude": "37.7749295",
       "image_hash": "bafybeig337cho6yst3uo3t5ewqt2vsju5r6yevud32eu2u6x2t25ysmtry"

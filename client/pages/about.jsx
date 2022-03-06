@@ -4,33 +4,31 @@ const about = () => {
   return (
     <div className="bg-black min-h-screen">
       <Layout>
-        <div className="mx-32 mb-44 mt-10">
-          <h1 className="text-left ">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda
-            necessitatibus alias optio deserunt, earum aperiam iure reiciendis
-            ab dolorem, voluptatum animi facere minima recusandae doloremque
-            facilis? Rem officiis illo hic explicabo sequi eveniet temporibus,
-            iste excepturi eaque, quaerat et odio sapiente dignissimos vero,
-            obcaecati nisi error iusto debitis iure. Ut maxime eius consectetur
-            iure omnis odio soluta tenetur earum ab perspiciatis error pariatur,
-            eligendi dolor aliquid tempore numquam consequuntur molestias
-            nostrum sapiente! Eligendi, excepturi blanditiis! Vitae architecto
-            nam pariatur culpa magni, recusandae amet nostrum adipisci
-            necessitatibus! Nam voluptate fugiat sapiente illo perferendis quas,
-            ipsum id. Fuga pariatur, ipsam distinctio exercitationem
-            perspiciatis dolorem inventore, odit eligendi qui et cumque
-            accusantium laudantium non molestias provident expedita aut laborum
-            voluptatem earum aspernatur repellat ab. Laborum facere nam soluta
-            et enim nostrum veritatis ea eligendi? Obcaecati magni impedit
-            beatae unde veritatis ex fugit sit quod dicta sunt tempora suscipit
-            illum officiis, quo id repellat deleniti facilis excepturi saepe
-            eveniet, quos, totam ad error. Perspiciatis nemo quis voluptate
-            iure, modi eius obcaecati? Quo, delectus ut distinctio impedit culpa
-            pariatur expedita! Officia enim, cumque et facere adipisci minima
-            cum odio nam impedit assumenda a aperiam porro exercitationem
-            laboriosam temporibus obcaecati vel eaque esse quam asperiores
-            iusto!
+        <div className="mx-32 mb-4 mt-10">
+          <h1 className="text-left text-2xl mb-4 border-b-2 w-56">
+            Project Introduction:
           </h1>
+          <p>
+            We have built a Decentralised Autonomous Platform for Real estate
+            investment that is KYC & AML compliant. This platform connects real
+            estate developers and a large pool of investors that will be
+            confident investing in a real estate project regardless of where the
+            project is located through the help of a local real estate expert
+            that will be able to convince them in a transparent manner.
+          </p>
+        </div>
+
+        <div className="mx-32 mb-4 mt-10">
+          <h1 className="text-left text-2xl mb-4 border-b-2 w-52">
+            Project Motivation:
+          </h1>
+          <p>
+            Real estate projects are usually capital intensive. Hence, anyone
+            who wishes to embark on them must be financially credible. This
+            creates a gap for young people like us who may not be patient enough
+            to invest in our first property until we are financially credible to
+            embark on such a project.
+          </p>
         </div>
       </Layout>
     </div>
