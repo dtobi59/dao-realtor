@@ -25,6 +25,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [files, setFiles] = useState([]);
+    const [increment, setIncrement] = useState(0);
     const { createProperty } = useContext(TransactionContext);
 
     const handleFileChange = (e) => {
@@ -36,12 +37,14 @@ export default function ProjectSubmissionForm({ setLoading }) {
             return fileInputRef.current.value = null;
         }
 
+        setIncrement(increment + 1);
+
         const fileName = name.split(" ").join("").toLowerCase();
-        const ext = e.target.files[0].name.substr(fileName.lastIndexOf('.') + 1);
+        const ext = e.target.files[0].name.substr(e.target.files[0].name.lastIndexOf('.') + 1);
         const imgObj = {
             preview: URL.createObjectURL(e.target.files[0]),
             raw: e.target.files[0],
-            name: fileName + "_" + files.length + ext
+            name: fileName + "_" + increment + "." + ext
         }
         setFiles([...files, imgObj]);
         return fileInputRef.current.value = null;
@@ -69,7 +72,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
             if (response) {
                 console.log("success", response);
                 try {
-                    const createPropertyOnChain = await createProperty(response);
+                    const createPropertyOnChain = true // await createProperty(response);
                     if (createPropertyOnChain) {
                         setLoading(false);
                         return clearForm();
@@ -92,6 +95,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
     }
 
     const clearImage = (index) => {
+        setIncrement(increment + 1);
         const newFiles = [...files];
         newFiles.splice(index, 1);
         setFiles(newFiles);
@@ -172,7 +176,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
                 <div className="max-w-[570px] pt-2 ">
 
                     <div className="pb-2  text-center">
-                        <p className="text-center pb-3">Upload Images</p>
+                        <p className="text-center pb-3">Upload Images ({files.length} out of 5)</p>
                         <div className="flex flex-wrap justify-around gap-4">
                             {files && files.map((file, index) => { return <Image src={file.preview} width="150" height="150" onClick={() => clearImage(index)} key={index} /> })}
                         </div>
@@ -180,9 +184,14 @@ export default function ProjectSubmissionForm({ setLoading }) {
                     <hr />
                     <div className="pb-20">
                         <input type="file" accept="image/jpg,image/png" name="image" className="py-3" id="image" ref={fileInputRef} disabled={!name || files.length >= 5 && true} onChange={handleFileChange} />
-                        <button onClick={handleSubmit} className="bg-[#2952e3] block rounded cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
-                            Submit
-                        </button>
+
+                        <div className="flex flex-row ">
+                            <button onClick={handleSubmit} className="bg-[#2952e3] block rounded cursor-pointer px-2 py-1 m-3 hover:bg-[#2546bd]">
+                                Submit
+                            </button>
+                            <button onClick={clearForm} className="bg-gray-300 text-black block rounded cursor-pointer px-2 py-1  m-3 hover:bg-gray-500">Clear</button>
+                            <button onClick={() => console.log(files)}>LOG</button>
+                        </div>
                     </div>
                 </div>
             </div>
