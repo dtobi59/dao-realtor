@@ -1,3 +1,4 @@
+import { create } from 'ipfs-http-client';
 import { Web3Storage } from 'web3.storage';
 
 function getAccessToken() {
@@ -9,7 +10,7 @@ function getAccessToken() {
     // environement variable or other configuration that's kept outside of 
     // your code base. For this to work, you need to set the
     // WEB3STORAGE_TOKEN environment variable before you run your code.
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEE4NmU3ODdhNzQ1NUIxQjc0Q2VEMDJkMDU0RTZBMEUxNTJDYjQzRDgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NDY0ODk5MzQ5MTIsIm5hbWUiOiJyZWFsdG9yREFPIn0.2nVbcdofKCAXpCOTLvHx9qPXlBwwOHGORkTWrS8TzUw";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEE4NmU3ODdhNzQ1NUIxQjc0Q2VEMDJkMDU0RTZBMEUxNTJDYjQzRDgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NDY1MTQ5ODkwMDMsIm5hbWUiOiJyZWFsdG9yREFPIn0.6Lt8vrGvVZQURQM6E4vJLMNHjaBAb5_DUHSL-VhpZTk";
 
     // const token = process.env.WEB3STORAGE_TOKEN
     return token;
@@ -39,4 +40,18 @@ export async function storeFiles(files) {
     const fileObjects = createFileObjects(files);
     const cid = await client.put(fileObjects)
     return cid
+}
+
+export async function getLinks(cid) {
+    if (!cid) {
+        console.error('No CID provided');
+        return null;
+    }
+    const url = 'https://dweb.link/api/v0'
+    const ipfs = create({ url })
+    const links = [];
+    for await (const link of ipfs.ls(cid)) {
+        links.push(link)
+    }
+    return links
 }
