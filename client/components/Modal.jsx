@@ -1,10 +1,9 @@
-import Link from "next/link";
-import React, { useState , useContext} from "react";
+import React, { useContext, useState } from "react";
 import { TransactionContext } from "../context/TransactionContext";
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
-    className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10 my-5"
+    className="text-black px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10 my-3"
     placeholder={placeholder}
     type={type}
     value={value}
@@ -13,33 +12,43 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (isFormValid()) {
-      const response = await handleDataBeforeSendingToBlockchain();
-      if (response) {
-          console.log("success", response);
-          try {
-              const createPropertyOnChain = await createAccount(response);
-             
-          } catch (error) {
-              console.error(error);
-          }
-      }
-  }
-}
-
-const isFormValid = () => {
-  if (!name || !description || !price || !latitude || !longitude || !files.length >= 1) {
-      alert("Please fill out all fields.");
-      return false;
-  }
-  return true;
-}
-
 export default function Modal() {
   const [showModal, setShowModal] = useState(false);
-  const { handleChange, createAccount } = useContext(TransactionContext);
+  const { currentAccount, createAccount } = useContext(TransactionContext);
+
+  const [formData, setFormData] = useState({
+    officialName: "",
+    governmentId: "",
+    streetAddress: "",
+    accountType: "",
+    walletAddress: currentAccount,
+  });
+
+  const handleChange = (e, name) => {
+    setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isFormValid()) {
+      try {
+        const response = await createAccount(formData);
+        if (response) {
+          alert("Account created successfully!");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+
+  const isFormValid = () => {
+    if (!formData.officialName || !formData.governmentId || !formData.streetAddress || !formData.walletAddress || !formData.accountType) {
+      alert("Please fill out all fields.");
+      return false;
+    }
+    return true;
+  }
 
   return (
     <>
@@ -61,56 +70,60 @@ export default function Modal() {
                   <h3 className="text-xl text-black ml-24 font-semibold">
                     Create Account{" "}
                   </h3>
-                  <h3 className="text-sm  font-semibold text-red-600 mt-5">
-                    Please select Account type{" "}
-                  </h3>
                 </div>
                 {/*body*/}
                 <div className="relative px-8 flex-auto">
-                   
 
-                    <div className="flex justify-center mt-10 items-center mb-36">
-          <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center bg-slate-700 rounded-2xl">
-            <p className="text-red-500">Please fill in the following form fields </p>
-           
-            <select name="" id="">
-                    <option value="investor">Investor</option>
-                    <option value="developer">Developer</option>
-                      <option value="validator">Validator</option>
-            </select>
 
-             <Input
-              placeholder="Official name"
-              name=""
-              type="text"
-              handleChange={handleChange}
-            />
-            <Input
-              placeholder="Government ID"
-              name=" "
-              type="text"
-              handleChange={handleChange}
-            />
-            <Input
-              placeholder=" Address "
-              name=""
-              type="text"
-              handleChange={handleChange}
-            />
+                  <div className="flex justify-center mt-5 items-center mb-6">
+                    <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center bg-slate-700 rounded-2xl">
+                      <p className="text-white-500">Please fill in the following form fields </p>
 
-            <div className="h-[1px] w-full bg-gray-400 my-2" />
-            <button
-              onClick={() => handleSubmit()}
-              className=" self-center text-white justify-center items-center my-5 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
+                      <select name="account_type" id="account_type" className="text-black rounded p-3 w-full my-3"
+                        onChange={(e) => handleChange(e, "accountType")}
+                        value={formData.accountType}
+                      >
+                        <option value="">Select Account Type</option>
+                        <option value="investor">Investor</option>
+                        <option value="developer">Developer</option>
+                        <option value="validator">Validator</option>
+                      </select>
+
+                      <Input
+                        placeholder="Official name"
+                        name="officialName"
+                        type="text"
+                        value={formData.officialName}
+                        handleChange={handleChange}
+                      />
+                      <Input
+                        placeholder="Government ID"
+                        name="governmentId"
+                        type="text"
+                        value={formData.governmentId}
+                        handleChange={handleChange}
+                      />
+                      <Input
+                        placeholder="Street Address"
+                        name="streetAddress"
+                        type="text"
+                        value={formData.streetAddress}
+                        handleChange={handleChange}
+                      />
+
+                      <div className="h-[1px] w-full bg-gray-400 my-2" />
+                      <button
+                        onClick={handleSubmit}
+                        className=" self-center text-white justify-center items-center my-2 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
 
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div className="flex items-center justify-end p-3 border-t border-solid border-blueGray-200 rounded-b">
                   {/* <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
@@ -118,7 +131,7 @@ export default function Modal() {
                     Cancel
                   </button> */}
                   <button
-                    className="bg-gray-400 text-red-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-gray-400 text-white-500 font-bold uppercase text-sm px-3 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >

@@ -26,16 +26,6 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState();
-  const [formData, setFormData] = useState({
-    officialName: "",
-    governmentId: "",
-    address: "",
-    walletAddress: "",
-  });
-  const handleChange = (e, name) => {
-    setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
-  };
-
 
   const saveData = async (data) => {
     //todo: implement sanity
@@ -70,29 +60,28 @@ export const TransactionProvider = ({ children }) => {
     return _hash
   };
 
-  const createAccount = async(data) => {
-     switch(data.account_type){
-       case "developer":
-         createDeveloperAccount(data)
-         break
-       case "validator":
-         createValidatorAccount(data)
-         break
-       case "investor":
-         createInvestorAccount(data)
-         break
-       default:
-         throw new Error("Invalid Account type")
-
-     }
+  const createAccount = async (data) => {
+    switch (data.accountType) {
+      case "developer":
+        createDeveloperAccount(data)
+        break
+      case "validator":
+        createValidatorAccount(data)
+        break
+      case "investor":
+        createInvestorAccount(data)
+        break
+      default:
+        alert("Invalid Account type")
+    }
   }
 
   const createDeveloperAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
     let _data = {
-      name: data.name,
-      govt_id: data.govt_id,
-      address: data.address,
-      account_type: data.account_type,
+      name: data.officialName,
+      account_type: data.accountType,
+      govt_id: data.governmentId,
+      address: data.streetAddress,
       wallet_address: currentAccount,
     };
 
@@ -128,12 +117,12 @@ export const TransactionProvider = ({ children }) => {
   }
 
   const createValidatorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
-    
+
     let _data = {
-      name: data.name,
-      govt_id: data.govt_id,
-      address: data.address,
-      account_type: data.account_type,
+      name: data.officialName,
+      account_type: data.accountType,
+      govt_id: data.governmentId,
+      address: data.streetAddress,
       wallet_address: currentAccount,
     };
 
@@ -168,18 +157,19 @@ export const TransactionProvider = ({ children }) => {
     }
   }
 
-
   const createInvestorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
     //show dialog to enter details
     let _data = {
-      name: data.name,
-      govt_id: data.govt_id,
-      address: data.address,
-      account_type: data.account_type,
+      name: data.officialName,
+      account_type: data.accountType,
+      govt_id: data.governmentId,
+      address: data.streetAddress,
       wallet_address: currentAccount,
     };
 
-    const kyc_hash = saveData(data);
+    console.log(_data);
+
+    const kyc_hash = false// saveData(_data);
 
     if (kyc_hash) {
       if (!metamask) return alert('Please install metamask ')
@@ -210,6 +200,7 @@ export const TransactionProvider = ({ children }) => {
 
     }
   };
+
   /**
    * Checks if MetaMask is installed and an account is connected
    * @param {*} metamask Injected MetaMask code from the browser
@@ -276,9 +267,7 @@ export const TransactionProvider = ({ children }) => {
       value={{
         connectWallet,
         currentAccount,
-        formData,
         createAccount,
-        handleChange,
         createProperty
       }}
     >
