@@ -20,7 +20,7 @@ export default function Modal() {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-slate-100 outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex  flex-col justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-xl ml-24 font-semibold">
+                  <h3 className="text-xl text-black ml-24 font-semibold">
                     Create Account{" "}
                   </h3>
                   <h3 className="text-sm  font-semibold text-red-600 mt-5">

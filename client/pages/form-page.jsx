@@ -20,8 +20,9 @@ const formPage = () => {
   return (
     <div className="bg-black min-h-screen">
       <Layout>
-        <div className="flex justify-center items-center">
-          <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center bg-slate-700">
+        <div className="flex justify-center mt-10 items-center mb-36">
+          <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center bg-slate-700 rounded-2xl">
+            <p className="text-red-500">Please fill in the following form fields </p>
             <Input
               placeholder="Official name"
               name=""
@@ -42,7 +43,10 @@ const formPage = () => {
             />
 
             <div className="h-[1px] w-full bg-gray-400 my-2" />
-            <button onClick={() => createInvestorAccount()} className=" self-center text-white justify-center items-center my-5 px-10 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]">
+            <button
+              onClick={() => createInvestorAccount()}
+              className=" self-center text-white justify-center items-center my-5 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"
+            >
               Submit
             </button>
           </div>
