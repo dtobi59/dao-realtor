@@ -58,11 +58,84 @@ export const TransactionProvider = ({ children }) => {
   }
 
   const createDeveloperAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
- 
+    let _data = {
+      name: data.name,
+      govt_id: data.govt_id,
+      address: data.address,
+      account_type: data.account_type,
+      wallet_address: currentAccount,
+    };
+
+    const kyc_hash = saveData(data);
+
+    if (kyc_hash) {
+      if (!metamask) return alert('Please install metamask ')
+      const transactionContract = getEthereumContract()
+
+      const parsedAmount = ethers.utils.parseEther("5000")
+
+      var _params = [
+        {
+          gas: '0x7EF40', // 520000 Gwei
+          value: parsedAmount._hex,
+        },
+      ]
+
+      await metamask.request({
+        method: 'eth_sendTransaction',
+        params: _params
+      })
+
+      const transactionHash = await transactionContract.createValidator(kyc_hash)
+
+
+      await transactionHash.wait()
+
+      alert("Developer Account created onchain");
+
+
+    }
   }
 
   const createValidatorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
-  
+    
+    let _data = {
+      name: data.name,
+      govt_id: data.govt_id,
+      address: data.address,
+      account_type: data.account_type,
+      wallet_address: currentAccount,
+    };
+
+    const kyc_hash = saveData(data);
+
+    if (kyc_hash) {
+      if (!metamask) return alert('Please install metamask ')
+      const transactionContract = getEthereumContract()
+
+      const parsedAmount = ethers.utils.parseEther("15000")
+
+      var _params = [
+        {
+          gas: '0x7EF40', // 520000 Gwei
+          value: parsedAmount._hex,
+        },
+      ]
+
+      await metamask.request({
+        method: 'eth_sendTransaction',
+        params: _params
+      })
+
+      const transactionHash = await transactionContract.createValidator(kyc_hash)
+
+
+      await transactionHash.wait()
+
+      alert("Validator Account created onchain");
+
+
+    }
   }
 
 
@@ -72,6 +145,7 @@ export const TransactionProvider = ({ children }) => {
       name: data.name,
       govt_id: data.govt_id,
       address: data.address,
+      account_type: data.account_type,
       wallet_address: currentAccount,
     };
 
