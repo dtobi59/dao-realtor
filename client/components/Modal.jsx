@@ -88,6 +88,7 @@ export default function Modal() {
                         <option value="developer">Developer</option>
                         <option value="validator">Validator</option>
                       </select>
+                      <label htmlFor="">You're required to pay a fee for Developer and Investor Account</label>
 
                       <Input
                         placeholder="Official name"
