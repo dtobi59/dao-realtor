@@ -8,22 +8,22 @@ import ListingImages from "../../components/ListingImages";
 
 export default function HomeListing({ data, id }) {
 
-    return (
-        <Layout>
-            <Header title={data.title} description={data.description.description} />
-            <div className="flex flex-row sm:flex-col min-w-screen justify-self-auto justify-center w-full">
-                <div className="md:block sm:hidden">
-                    <ListingHeading data={data} />
-                </div>
-                <ListingImages id={id} data={data} />
-                <ListingDetails data={data} />
-            </div>
-        </Layout>
-    );
+  return (
+    <Layout>
+      <Header title={data.title} description={data.description.description} />
+      <div className="flex flex-row sm:flex-col min-w-screen justify-self-auto justify-center w-full">
+        <div className="md:block sm:hidden">
+          <ListingHeading data={data} />
+        </div>
+        <ListingImages id={id} data={data} />
+        <ListingDetails data={data} />
+      </div>
+    </Layout>
+  );
 }
 
 export async function getServerSideProps({ params }) {
-    const id = params.id;
-    const data = homes[id];
-    return { props: { data, id } }
+  const id = params.id;
+  const data = homes[id];
+  return { props: { data, id } };
 }

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useContext} from 'react'
 import { Layout } from '../components'
 import { TransactionContext } from "../context/TransactionContext";
 
@@ -6,7 +6,7 @@ import { TransactionContext } from "../context/TransactionContext";
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
-    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+    className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10 my-5"
     placeholder={placeholder}
     type={type}
     value={value}
