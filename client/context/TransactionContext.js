@@ -42,18 +42,89 @@ export const TransactionProvider = ({ children }) => {
         createInvestorAccount(data)
         break
       default:
-        throw new Error("Invalid Account type")
-
+        alert("Invalid Account type")
     }
   }
 
   const createDeveloperAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
-    console.log(data);
+    let _data = {
+      name: data.officialName,
+      account_type: data.accountType,
+      govt_id: data.governmentId,
+      address: data.streetAddress,
+      wallet_address: currentAccount,
+    };
+
+    const kyc_hash = saveData(data);
+
+    if (kyc_hash) {
+      if (!metamask) return alert('Please install metamask ')
+      const transactionContract = getEthereumContract()
+
+      const parsedAmount = ethers.utils.parseEther("5000")
+
+      var _params = [
+        {
+          gas: '0x7EF40', // 520000 Gwei
+          value: parsedAmount._hex,
+        },
+      ]
+
+      await metamask.request({
+        method: 'eth_sendTransaction',
+        params: _params
+      })
+
+      const transactionHash = await transactionContract.createValidator(kyc_hash)
+
+
+      await transactionHash.wait()
+
+      alert("Developer Account created onchain");
+
+
+    }
   }
 
   const createValidatorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
-    console.log(data);
 
+    let _data = {
+      name: data.officialName,
+      account_type: data.accountType,
+      govt_id: data.governmentId,
+      address: data.streetAddress,
+      wallet_address: currentAccount,
+    };
+
+    const kyc_hash = saveData(data);
+
+    if (kyc_hash) {
+      if (!metamask) return alert('Please install metamask ')
+      const transactionContract = getEthereumContract()
+
+      const parsedAmount = ethers.utils.parseEther("15000")
+
+      var _params = [
+        {
+          gas: '0x7EF40', // 520000 Gwei
+          value: parsedAmount._hex,
+        },
+      ]
+
+      await metamask.request({
+        method: 'eth_sendTransaction',
+        params: _params
+      })
+
+      const transactionHash = await transactionContract.createValidator(kyc_hash)
+
+
+      await transactionHash.wait()
+
+      alert("Validator Account created onchain");
+
+
+    }
   }
 
   const createInvestorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
