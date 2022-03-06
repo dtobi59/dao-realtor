@@ -40,12 +40,38 @@ export const TransactionProvider = ({ children }) => {
     return "657457853hjf7823hjfvd";
   };
 
-  const createInvestorAccount = async (metamask = eth, connectedAccount = currentAccount,) => {
+  const createAccount = async(data) => {
+     switch(data.account_type){
+       case "developer":
+         createDeveloperAccount(data)
+         break
+       case "validator":
+         createValidatorAccount(data)
+         break
+       case "investor":
+         createInvestorAccount(data)
+         break
+       default:
+         throw new Error("Invalid Account type")
+
+     }
+  }
+
+  const createDeveloperAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
+ 
+  }
+
+  const createValidatorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
+  
+  }
+
+
+  const createInvestorAccount = async (data, metamask = eth, connectedAccount = currentAccount,) => {
     //show dialog to enter details
-    let data = {
-      name: "David",
-      govt_id: "342847284",
-      address: "Road 9, Nigeria",
+    let _data = {
+      name: data.name,
+      govt_id: data.govt_id,
+      address: data.address,
       wallet_address: currentAccount,
     };
 
@@ -147,7 +173,7 @@ export const TransactionProvider = ({ children }) => {
         connectWallet,
         currentAccount,
         formData,
-        createInvestorAccount,
+        createAccount,
         handleChange,
         createProperty
       }}

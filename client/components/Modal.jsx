@@ -1,8 +1,46 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
+import { TransactionContext } from "../context/TransactionContext";
+
+const Input = ({ placeholder, name, type, value, handleChange }) => (
+  <input
+    className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pr-10 my-5"
+    placeholder={placeholder}
+    type={type}
+    value={value}
+    onChange={(e) => handleChange(e, name)}
+  />
+);
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (isFormValid()) {
+      const response = await handleDataBeforeSendingToBlockchain();
+      if (response) {
+          console.log("success", response);
+          try {
+              const createPropertyOnChain = await createAccount(response);
+             
+          } catch (error) {
+              console.error(error);
+          }
+      }
+  }
+}
+
+const isFormValid = () => {
+  if (!name || !description || !price || !latitude || !longitude || !files.length >= 1) {
+      alert("Please fill out all fields.");
+      return false;
+  }
+  return true;
+}
 
 export default function Modal() {
   const [showModal, setShowModal] = useState(false);
+  const { handleChange, createAccount } = useContext(TransactionContext);
+
   return (
     <>
       <button
@@ -29,38 +67,47 @@ export default function Modal() {
                 </div>
                 {/*body*/}
                 <div className="relative px-8 flex-auto">
-                  <button
-                    className="flex flex-row w-80 self-center justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-                    type="button"
-                  >
-                    <p className="text-white text-base font-semibold">
-                      Developer
-                    </p>
-                  </button>
-                  <p className="text-red-500 -mt-5">
-                    (Account creation fee of $5,000 is required)
-                  </p>
-                  <button
-                    className="flex flex-row w-80 self-center mb-10 justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-                    type="button"
-                  >
-                    <p className="text-white text-base font-semibold ">
-                      Validator
-                    </p>
-                  </button>
-                  <Link href="/form-page">
-                    <button
-                      className="flex flex-row w-80 self-center justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-                      type="button"
-                    >
-                      <p className="text-white text-base font-semibold">
-                        Investor
-                      </p>
-                    </button>
-                  </Link>
-                  <p className="text-red-500 -mt-5 mb-3">
-                    (Account creation fee of $15,000 is required)
-                  </p>
+                   
+
+                    <div className="flex justify-center mt-10 items-center mb-36">
+          <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center bg-slate-700 rounded-2xl">
+            <p className="text-red-500">Please fill in the following form fields </p>
+           
+            <select name="" id="">
+                    <option value="investor">Investor</option>
+                    <option value="developer">Developer</option>
+                      <option value="validator">Validator</option>
+            </select>
+
+             <Input
+              placeholder="Official name"
+              name=""
+              type="text"
+              handleChange={handleChange}
+            />
+            <Input
+              placeholder="Government ID"
+              name=" "
+              type="text"
+              handleChange={handleChange}
+            />
+            <Input
+              placeholder=" Address "
+              name=""
+              type="text"
+              handleChange={handleChange}
+            />
+
+            <div className="h-[1px] w-full bg-gray-400 my-2" />
+            <button
+              onClick={() => handleSubmit()}
+              className=" self-center text-white justify-center items-center my-5 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
