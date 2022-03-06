@@ -112,10 +112,9 @@ export default function Modal() {
                       />
 
                       <div className="h-[1px] w-full bg-gray-400 my-2" />
-                      <button onClick={() => console.log(formData)}>LOG</button>
                       <button
                         onClick={handleSubmit}
-                        className=" self-center text-white justify-center items-center my-5 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"
+                        className=" self-center text-white justify-center items-center my-2 px-10 bg-[#2952e3] py-2 rounded-full cursor-pointer hover:bg-[#2546bd]"
                       >
                         Submit
                       </button>
