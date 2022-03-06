@@ -1,6 +1,0 @@
-{
-  "name": "hardhat-project",
-  "dependencies": {
-    "flowbite": "^1.3.4"
-  }
-}

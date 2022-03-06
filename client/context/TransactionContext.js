@@ -1,5 +1,5 @@
+import { ethers } from 'ethers';
 import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
 import { contractABI, contractAddress } from "../lib/constants";
 
 export const TransactionContext = React.createContext();
@@ -24,35 +24,60 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState();
-      const [formData, setFormData] = useState({
-        officialName: "",
-        governmentId: "",
-        address: "",
-        walletAddress: "",
-      });
-      const handleChange = (e, name) => {
-        setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  const [formData, setFormData] = useState({
+    officialName: "",
+    governmentId: "",
+    address: "",
+    walletAddress: "",
+  });
+  const handleChange = (e, name) => {
+    setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
-  
+
 
   const saveData = async (data) => {
     //todo: implement sanity
     return "657457853hjf7823hjfvd";
   };
 
-  const createAccount = async () => {
+  const createInvestorAccount = async (metamask = eth, connectedAccount = currentAccount,) => {
     //show dialog to enter details
     let data = {
-      name: "",
-      govt_id: "",
-      address: "",
+      name: "David",
+      govt_id: "342847284",
+      address: "Road 9, Nigeria",
       wallet_address: currentAccount,
     };
 
     const kyc_hash = saveData(data);
 
-    if (is_saved) {
-      //call smart function
+    if (kyc_hash) {
+      if (!metamask) return alert('Please install metamask ')
+      const transactionContract = getEthereumContract()
+      const parsedAmount = ethers.utils.parseEther("0")
+
+      // var _params = [
+      //   {
+      //     from: connectedAccount,
+      //     to: "",
+      //     gas: '0x7EF40', // 520000 Gwei
+      //     value: parsedAmount._hex,
+      //   },
+      // ]
+
+      // await metamask.request({
+      //   method: 'eth_sendTransaction',
+      //   params: _params
+      // })
+
+      const transactionHash = await transactionContract.createInvestor(kyc_hash)
+
+
+      await transactionHash.wait()
+
+      alert("Account created onchain");
+
+
     }
   };
   /**
@@ -73,6 +98,12 @@ export const TransactionProvider = ({ children }) => {
       console.error(error);
       throw new Error("No ethereum object.");
     }
+  };
+
+  const createProperty = async (data) => {
+    const transactionContract = getEthereumContract();
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.cid);
+    console.log(tx);
   };
 
   /**
@@ -105,7 +136,9 @@ export const TransactionProvider = ({ children }) => {
         connectWallet,
         currentAccount,
         formData,
+        createInvestorAccount,
         handleChange,
+        createProperty
       }}
     >
       {children}

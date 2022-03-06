@@ -15,7 +15,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const formPage = () => {
-    const { handleChange } = useContext(TransactionContext);
+    const { handleChange, createInvestorAccount } = useContext(TransactionContext);
 
   return (
     <div className="bg-black min-h-screen">
@@ -42,7 +42,7 @@ const formPage = () => {
             />
 
             <div className="h-[1px] w-full bg-gray-400 my-2" />
-            <button className=" self-center text-white justify-center items-center my-5 px-10 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]">
+            <button onClick={() => createInvestorAccount()} className=" self-center text-white justify-center items-center my-5 px-10 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]">
               Submit
             </button>
           </div>
