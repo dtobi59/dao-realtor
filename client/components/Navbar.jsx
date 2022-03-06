@@ -48,16 +48,16 @@ const Navbar = () => {
         <ul className="text-white md:flex list-none flex-row justify-between items-center flex-initial">
           {[
             "Home",
-            "Project Submission",
             "Home Listings",
-            "Wallets",
-            "Contact",
+            "About",
           ].map((item, index) => (
             <NavbarItem key={item + index} title={item} />
           ))}
-          <li className="bg-[#2952e3] block rounded-full cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
-            Login
-          </li>
+          <a href="/projectsubmission">
+            <li className="bg-[#2952e3] block rounded-full cursor-pointer px-2 py-1 hover:bg-[#2546bd]">
+              Login
+            </li>
+          </a>
         </ul>
       </div>
     </nav>
