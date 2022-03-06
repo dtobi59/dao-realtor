@@ -227,17 +227,15 @@ export const TransactionProvider = ({ children }) => {
 
     const transactionContract = getEthereumContract();
 
-    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, {
-      gasLimit: 5000000,
-    });
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, { gasLimit: 3500000, });
 
     console.log("tx", tx.hash);
     const reciept = await tx.wait();
-    if (!reciept.hash) {
+    console.log("reciept", reciept);
+    if (!reciept) {
       alert("Transaction Failed");
       return false;
     }
-    console.log("reciept", reciept);
     alert("Transaction Successful");
     return true;
   };

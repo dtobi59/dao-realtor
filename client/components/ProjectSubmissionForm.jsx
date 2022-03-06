@@ -73,13 +73,18 @@ export default function ProjectSubmissionForm({ setLoading }) {
                 try {
                     const createPropertyOnChain = await createProperty(response);
                     if (createPropertyOnChain) {
+                        alert("Project Submitted Successfully!");
                         setLoading(false);
                         return clearForm();
+                    } else {
+                        const message = error.message ? error.message : "Error creating property on blockchain. Please try again.";
+                        alert(`Error: ${message}`);
                     }
                 } catch (error) {
                     setLoading(false);
                     console.error(error);
-                    alert(`Error: ${error.data.message || "Unknown Error"}`);
+                    const message = error.message ? error.message : "Error creating property on blockchain. Please try again.";
+                    alert(`Error: ${message}`);
                 }
             }
         }
