@@ -90,6 +90,7 @@ export const TransactionProvider = ({ children }) => {
       if (!metamask) return alert('Please install metamask ')
       const transactionContract = getEthereumContract()
 
+<<<<<<< HEAD
       const parsedAmount = ethers.utils.parseEther("0.1")
       
       var _params = 
@@ -97,6 +98,14 @@ export const TransactionProvider = ({ children }) => {
           value: parsedAmount
         };
       
+=======
+      const parsedAmount = ethers.utils.parseEther("0.0001")
+
+      var _params =
+      {
+        value: parsedAmount
+      };
+>>>>>>> 36496deb4a757377379508589fc02ba5a1994f1f
 
       // await metamask.request({
       //   method: 'eth_sendTransaction',
@@ -142,12 +151,16 @@ export const TransactionProvider = ({ children }) => {
       //   method: 'eth_sendTransaction',
       //   params: _params
       // })
+<<<<<<< HEAD
       const parsedAmount = ethers.utils.parseEther("0.1")
       
       var _params = 
         {
           value: parsedAmount
         };
+=======
+      const parsedAmount = ethers.utils.parseEther("0.005")
+>>>>>>> 36496deb4a757377379508589fc02ba5a1994f1f
 
       const transactionHash = await transactionContract.createValidator(kyc_hash,_params)
 
@@ -229,7 +242,14 @@ export const TransactionProvider = ({ children }) => {
 
     const transactionContract = getEthereumContract();
 
+<<<<<<< HEAD
     const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, { gasLimit: 3000000 });
+=======
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, {
+      gasLimit: 500000000,
+    });
+
+>>>>>>> 36496deb4a757377379508589fc02ba5a1994f1f
     console.log("tx", tx.hash);
     const reciept = await tx.wait();
     if (!reciept.hash) {
