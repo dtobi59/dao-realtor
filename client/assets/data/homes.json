@@ -2,29 +2,33 @@
   "homes": [
     {
       "title": "Home 1",
-      "description": "Home 1",
-      "beds": 4,
-      "baths": 3.5,
-      "area": "2,877 sq ft",
-      "price": "$1,200,000",
-      "garage": "2 cars",
-      "address": "1234 Main St",
-      "city": "New York",
-      "state": "NY",
-      "zip": "10001"
+      "description": {
+        "description": "This is a description of the home 1",
+        "bedrooms": "4",
+        "bathrooms": "3.5",
+        "area": "2877",
+        "address": "1234 Main St, New York, NY 10001",
+        "county": "United States"
+      },
+      "price": "1200000",
+      "longitude": "-122.4194155",
+      "latitude": "37.7749295",
+      "image_hash": ""
     },
     {
       "title": "Home 2",
-      "description": "Home 2",
-      "beds": 5,
-      "baths": 4,
-      "area": "3,721 sq ft",
-      "price": "$1,800,000",
-      "garage": "3 car",
-      "address": "5678 Another St",
-      "city": "New York",
-      "state": "NY",
-      "zip": "10001"
+      "description": {
+        "description": "This is a description of the home 2",
+        "bedrooms": "9",
+        "bathrooms": "4.5",
+        "area": "4577",
+        "address": "5678 Another St, New York, NY 10001",
+        "county": "United States"
+      },
+      "price": "1800000",
+      "longitude": "-122.4194155",
+      "latitude": "37.7749295",
+      "image_hash": ""
     }
   ]
 }
