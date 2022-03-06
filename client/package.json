@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@blazity/next-image-proxy": "^1.0.2",
     "@sanity/client": "^3.2.0",
     "ethers": "^5.5.4",
     "ipfs-http-client": "^56.0.1",
