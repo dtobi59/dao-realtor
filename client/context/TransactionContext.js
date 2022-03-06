@@ -88,7 +88,7 @@ export const TransactionProvider = ({ children }) => {
       if (!metamask) return alert('Please install metamask ')
       const transactionContract = getEthereumContract()
 
-      const parsedAmount = ethers.utils.parseEther("0.1")
+      const parsedAmount = ethers.utils.parseEther("0.0001")
 
       var _params =
       {
@@ -139,7 +139,7 @@ export const TransactionProvider = ({ children }) => {
       //   method: 'eth_sendTransaction',
       //   params: _params
       // })
-      const parsedAmount = ethers.utils.parseEther("0.1")
+      const parsedAmount = ethers.utils.parseEther("0.005")
 
       var _params =
       {
@@ -229,7 +229,9 @@ export const TransactionProvider = ({ children }) => {
 
     const transactionContract = getEthereumContract();
 
-    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash);
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, {
+      gasLimit: 500000000,
+    });
 
     console.log("tx", tx.hash);
     const reciept = await tx.wait();
