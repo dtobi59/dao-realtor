@@ -1,7 +1,7 @@
 {
   "homes": [
     {
-      "title": "Home 1",
+      "title": "Classic House",
       "description": {
         "description": "This is a description of the home 1",
         "bedrooms": "4",
@@ -16,13 +16,13 @@
       "image_hash": ""
     },
     {
-      "title": "Home 2",
+      "title": "Entire rental unit hosted by Bassem",
       "description": {
         "description": "This is a description of the home 2",
         "bedrooms": "9",
         "bathrooms": "4.5",
         "area": "4577",
-        "address": "5678 Another St, New York, NY 10001",
+        "address": "167577 N Boulevard, Tampa, FL 33578",
         "county": "United States"
       },
       "price": "1800000",
