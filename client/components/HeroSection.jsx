@@ -22,6 +22,10 @@ const HeroSection = () => {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae
             numquam beatae soluta?
           </p>
+
+          {/* Checks if account is connected or not*/}
+
+          
           {currentAccount ? (
             <Modal />
           ) : (
