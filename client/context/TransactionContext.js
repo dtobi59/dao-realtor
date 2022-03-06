@@ -27,6 +27,14 @@ const getEthereumContract = () => {
 export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState();
 
+  useEffect(() => {
+    if (!currentAccount) return
+    ;(async () => {
+       console.log("Account changed! reload page...")
+
+    })()
+  }, [currentAccount])
+
   const saveData = async (data) => {
     //todo: implement sanity
     const _hash = generated_hash.createHash('sha256')
