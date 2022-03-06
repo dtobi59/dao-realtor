@@ -1,5 +1,7 @@
 import Head from "next/head";
-import {Layout, HeroSection} from '../components'
+import { Layout, HeroSection } from '../components';
+
+
 
 export default function Home() {
   return (
