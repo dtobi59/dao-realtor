@@ -1,6 +1,8 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from "react";
 import { contractABI, contractAddress } from "../lib/constants";
+import { client } from '../lib/sanityClient';
+const generated_hash = require("crypto")
 
 export const TransactionContext = React.createContext();
 
@@ -25,9 +27,34 @@ const getEthereumContract = () => {
 export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState();
 
+  useEffect(() => {
+    if (!currentAccount) return
+      ; (async () => {
+        console.log("Account changed! reload page...")
+
+      })()
+  }, [currentAccount])
+
   const saveData = async (data) => {
     //todo: implement sanity
-    return "657457853hjf7823hjfvd";
+    const _hash = generated_hash.createHash('sha256')
+      .update(data, 'utf8')
+      .digest('hex')
+
+    const txDoc = {
+      _type: 'users',
+      _id: _hash,
+      name: data.officialName,
+      address: data.currentAccount,
+      account_type: data.accountType,
+      government_id: data.governmentId,
+      home_address: data.streetAddress,
+    }
+
+    await client.createIfNotExists(txDoc)
+
+
+    return _hash
   };
 
   const createAccount = async (data) => {
@@ -61,21 +88,19 @@ export const TransactionProvider = ({ children }) => {
       if (!metamask) return alert('Please install metamask ')
       const transactionContract = getEthereumContract()
 
-      const parsedAmount = ethers.utils.parseEther("5000")
+      const parsedAmount = ethers.utils.parseEther("0.1")
 
-      var _params = [
-        {
-          gas: '0x7EF40', // 520000 Gwei
-          value: parsedAmount._hex,
-        },
-      ]
+      var _params =
+      {
+        value: parsedAmount
+      };
 
-      await metamask.request({
-        method: 'eth_sendTransaction',
-        params: _params
-      })
+      // await metamask.request({
+      //   method: 'eth_sendTransaction',
+      //   params: _params
+      // })
 
-      const transactionHash = await transactionContract.createValidator(kyc_hash)
+      const transactionHash = await transactionContract.createDeveloper(kyc_hash, _params)
 
 
       await transactionHash.wait()
@@ -96,27 +121,32 @@ export const TransactionProvider = ({ children }) => {
       wallet_address: currentAccount,
     };
 
-    const kyc_hash = saveData(data);
+    const kyc_hash = saveData(_data);
 
     if (kyc_hash) {
       if (!metamask) return alert('Please install metamask ')
       const transactionContract = getEthereumContract()
 
-      const parsedAmount = ethers.utils.parseEther("15000")
 
-      var _params = [
-        {
-          gas: '0x7EF40', // 520000 Gwei
-          value: parsedAmount._hex,
-        },
-      ]
+      // var _params = [
+      //   {
+      //     gas: '0x7EF40', // 520000 Gwei
+      //     value: parsedAmount._hex,
+      //   },
+      // ]
 
-      await metamask.request({
-        method: 'eth_sendTransaction',
-        params: _params
-      })
+      // await metamask.request({
+      //   method: 'eth_sendTransaction',
+      //   params: _params
+      // })
+      const parsedAmount = ethers.utils.parseEther("0.1")
 
-      const transactionHash = await transactionContract.createValidator(kyc_hash)
+      var _params =
+      {
+        value: parsedAmount
+      };
+
+      const transactionHash = await transactionContract.createValidator(kyc_hash, _params)
 
 
       await transactionHash.wait()
@@ -139,7 +169,7 @@ export const TransactionProvider = ({ children }) => {
 
     console.log(_data);
 
-    const kyc_hash = false// saveData(_data);
+    const kyc_hash = await saveData(_data);
 
     if (kyc_hash) {
       if (!metamask) return alert('Please install metamask ')
@@ -184,10 +214,13 @@ export const TransactionProvider = ({ children }) => {
 
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
+      } else {
+        alert("Please connect to your wallet");
       }
     } catch (error) {
       console.error(error);
-      throw new Error("No ethereum object.");
+      setCurrentAccount("");
+      alert("No ethereum object.");
     }
   };
 
@@ -196,9 +229,11 @@ export const TransactionProvider = ({ children }) => {
 
     const transactionContract = getEthereumContract();
 
-    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, { gasLimit: 3000000 });
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash);
+
     console.log("tx", tx.hash);
     const reciept = await tx.wait();
+
     if (!reciept.hash) {
       alert("Transaction Failed");
       return false;
