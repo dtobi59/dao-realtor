@@ -20,10 +20,10 @@ export default function ListingImages({ id, data }) {
     const floorplanAImg = `home_floorplan_${id}a.jpeg`;
 
     return (
-      <section class="overflow-hidden">
-        <div class="container px-5 py-2 mx-auto lg:pt-24 lg:px-32">
-          <div class="flex flex-wrap -m-1 md:-m-2">
-            <div class="flex flex-wrap w-1/2">
+      <section className="overflow-hidden">
+        <div className="container px-5 py-2 mx-auto lg:pt-24 lg:px-32">
+          <div className="flex flex-wrap -m-1 md:-m-2">
+            <div className="flex flex-wrap w-1/2">
               <div className="w-full p-1 md:p-2">
                 <Image
                   width={1000}
@@ -34,8 +34,8 @@ export default function ListingImages({ id, data }) {
                 />
               </div>
             </div>
-            <div class="flex flex-wrap w-1/2">
-              <div class="w-1/2 p-1 md:p-2">
+            <div className="flex flex-wrap w-1/2">
+              <div className="w-1/2 p-1 md:p-2">
                 <Image
                   src={images[interiorImg]}
                   width={300}
@@ -44,7 +44,7 @@ export default function ListingImages({ id, data }) {
                   className="block object-cover object-center w-full h-full opacity-100 hover:opacity-90 cursor-pointer"
                 />
               </div>
-              <div class="w-1/2 p-1 md:p-2">
+              <div className="w-1/2 p-1 md:p-2">
                 <Image
                   src={images[bathImg]}
                   width={300}
@@ -53,7 +53,7 @@ export default function ListingImages({ id, data }) {
                   className="block object-cover object-center w-full h-full rounded-tr-2xl opacity-100 hover:opacity-90 cursor-pointer"
                 />
               </div>
-              <div class="w-1/2 p-1 md:p-2">
+              <div className="w-1/2 p-1 md:p-2">
                 <Image
                   src={images[floorplanImg]}
                   width={300}
@@ -62,7 +62,7 @@ export default function ListingImages({ id, data }) {
                   className="block object-cover object-center w-full h-full  opacity-100 hover:opacity-90 cursor-pointer"
                 />
               </div>
-              <div class="w-1/2 p-1 md:p-2">
+              <div className="w-1/2 p-1 md:p-2">
                 <Image
                   src={images[floorplanAImg]}
                   width={300}

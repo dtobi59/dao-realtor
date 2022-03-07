@@ -55,7 +55,7 @@ export const TransactionProvider = ({ children }) => {
       wallet_address: currentAccount,
     };
 
-    const kyc_hash = saveData(data);
+    const kyc_hash = saveData(_data);
 
     if (kyc_hash) {
       if (!metamask) return alert('Please install metamask ')

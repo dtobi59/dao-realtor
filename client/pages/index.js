@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 export default function Home() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black h-screen">
       <Layout>
         <Header
           title="A web3 real estate investment platform."
