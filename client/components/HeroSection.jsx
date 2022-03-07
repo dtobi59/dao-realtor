@@ -19,17 +19,16 @@ const HeroSection = () => {
             <br /> for Real estate investment.
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-            Changing the concept of Real estate investment for the better! 
+            Changing the concept of Real estate investment for the better!
           </p>
 
           {/* Checks if account is connected or not*/}
-
 
           {currentAccount ? (
             <Modal />
           ) : (
             <button
-              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd] "
               type="button"
               onClick={() => connectWallet()}
             >
