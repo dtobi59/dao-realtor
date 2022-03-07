@@ -37,6 +37,9 @@ contract DAORealEstate is Ownable {
 
    mapping (address => User) public users;
    mapping (uint => uint) public totalProperyInvestment;
+
+
+   event NewProperty(address indexed from, uint256 timestamp, Property property);
  
  
    Property[] public properties;
@@ -72,11 +75,11 @@ contract DAORealEstate is Ownable {
       string memory _description,
       string memory _longitude,
       string memory _latitude,
-      string memory _image_hash) external onlyDeveloper { 
+      string memory _image_hash) external returns (bool) { 
    
 
-     uint id = properties.length - 1;
-     properties.push(Property(
+     uint id = properties.length + 1;
+     Property memory newProperty =  Property(
       id,
       _price,
       msg.sender,
@@ -84,19 +87,35 @@ contract DAORealEstate is Ownable {
       _description,
       _longitude,
       _latitude,
-      _image_hash));
+      _image_hash
+     );
+     
+     properties.push(newProperty);     
+
+      // emit the property event 
+      emit NewProperty(msg.sender, block.timestamp, newProperty);
+
+      return true;
+
+      
    }
+
+   function getAllProperty() public view returns (Property[] memory){
+      return properties;
+   }
+
 
    function createInvestor(
       string memory _kyc_hash     
    )  external newAddress{
       users[msg.sender] = User({
-         account_type: "developer",
+         account_type: "investor",
          kyc_hash: _kyc_hash,
          is_created: true
       });
 
    }
+
 
    function createDeveloper(
       string memory _kyc_hash
@@ -108,6 +127,7 @@ contract DAORealEstate is Ownable {
          is_created: true
       });
    }
+
 
    function createValidator(
       string memory _kyc_hash
@@ -123,7 +143,7 @@ contract DAORealEstate is Ownable {
    function invest(
       uint _property_id, 
       uint _amount
-   ) public payable onlyInvestor avaiableForInvestment(_property_id)
+   ) public payable avaiableForInvestment(_property_id)
    returns (uint){
       
       require(msg.value > _amount,"The amount you want to invest is less than the msg.value amount");
@@ -144,10 +164,9 @@ contract DAORealEstate is Ownable {
    }
 
 
-
    modifier onlyDeveloper {
-      string memory account_type = users[msg.sender].account_type;
-      require(keccak256(abi.encodePacked(account_type)) == "developer");
+      string storage account_type = users[msg.sender].account_type;
+      require(keccak256(abi.encodePacked(account_type)) == "developer","You're required to be a developer to perform this operation");
       _;
    }
 

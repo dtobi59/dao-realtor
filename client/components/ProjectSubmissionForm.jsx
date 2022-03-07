@@ -1,7 +1,6 @@
 // Project Submission Component
 // Allows a developer to submit a project to the platform
-
-import Image from "next/image";
+import Image from 'next/image';
 import { useContext, useRef, useState } from "react";
 import { TransactionContext } from '../context/TransactionContext';
 import { storeFiles } from "../lib/web3storage";
@@ -80,7 +79,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
                 } catch (error) {
                     setLoading(false);
                     console.error(error);
-                    alert("Error: Only Developers can create properties.");
+                    alert(`Error: ${error.data.message || "Unknown Error"}`);
                 }
             }
         }

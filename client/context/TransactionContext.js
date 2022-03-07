@@ -12,6 +12,9 @@ if (typeof window !== "undefined") {
   eth = window.ethereum;
 }
 
+
+
+
 const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
@@ -26,7 +29,6 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState();
-
   useEffect(() => {
     if (!currentAccount) return;
     (async () => {
@@ -85,13 +87,17 @@ export const TransactionProvider = ({ children }) => {
       wallet_address: currentAccount,
     };
 
-    const kyc_hash = saveData(_data);
+    const kyc_hash = saveData(data);
 
     if (kyc_hash) {
       if (!metamask) return alert("Please install metamask ");
       const transactionContract = getEthereumContract();
 
+<<<<<<< HEAD
       const parsedAmount = ethers.utils.parseEther("0.1");
+=======
+      const parsedAmount = ethers.utils.parseEther("0.0001")
+>>>>>>> 988a90733c455dabff28cb29af4c40b19b92e046
 
       var _params = {
         value: parsedAmount,
@@ -102,10 +108,14 @@ export const TransactionProvider = ({ children }) => {
       //   params: _params
       // })
 
+<<<<<<< HEAD
       const transactionHash = await transactionContract.createDeveloper(
         kyc_hash,
         _params
       );
+=======
+      const transactionHash = await transactionContract.createValidator(kyc_hash, _params)
+>>>>>>> 988a90733c455dabff28cb29af4c40b19b92e046
 
       await transactionHash.wait();
 
@@ -126,7 +136,7 @@ export const TransactionProvider = ({ children }) => {
       wallet_address: currentAccount,
     };
 
-    const kyc_hash = saveData(_data);
+    const kyc_hash = saveData(data);
 
     if (kyc_hash) {
       if (!metamask) return alert("Please install metamask ");
@@ -143,10 +153,17 @@ export const TransactionProvider = ({ children }) => {
       //   method: 'eth_sendTransaction',
       //   params: _params
       // })
+<<<<<<< HEAD
       const parsedAmount = ethers.utils.parseEther("0.1");
 
       var _params = {
         value: parsedAmount,
+=======
+      const parsedAmount = ethers.utils.parseEther("0.005")
+      var _params =
+      {
+        value: parsedAmount
+>>>>>>> 988a90733c455dabff28cb29af4c40b19b92e046
       };
 
       const transactionHash = await transactionContract.createValidator(
@@ -220,13 +237,10 @@ export const TransactionProvider = ({ children }) => {
 
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
-      } else {
-        alert("Please connect to your wallet");
       }
     } catch (error) {
       console.error(error);
-      setCurrentAccount("");
-      alert("No ethereum object.");
+      throw new Error("No ethereum object.");
     }
   };
 
@@ -235,6 +249,7 @@ export const TransactionProvider = ({ children }) => {
 
     const transactionContract = getEthereumContract();
 
+<<<<<<< HEAD
     const tx = await transactionContract.createProperty(
       data.price,
       data.name,
@@ -244,10 +259,14 @@ export const TransactionProvider = ({ children }) => {
       data.image_hash,
       { gasLimit: 500000000 }
     );
+=======
+    const tx = await transactionContract.createProperty(data.price, data.name, data.description, data.longitude, data.latitude, data.image_hash, {
+      gasLimit: 5000000,
+    });
+>>>>>>> 988a90733c455dabff28cb29af4c40b19b92e046
 
     console.log("tx", tx.hash);
     const reciept = await tx.wait();
-
     if (!reciept.hash) {
       alert("Transaction Failed");
       return false;
