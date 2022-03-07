@@ -76,7 +76,12 @@ const about = () => {
               />
             </div>
             <p className="text-white text-center italic text-xl">
-              Avrahm Kleinholz
+              Avrahm Kleinholz<br />
+              <a target="_blank" href="https://github.com/avrahm">GitHub @avrahm</a>
+              <br />
+              <span className="text-indigo-500">
+                <a target="_blank" href="https://opensea.io/assets/0x25ed58c027921e14d86380ea2646e3a1b5c55a8b/4047/">Developer Dao #4047</a>
+              </span>
             </p>
           </div>
           <div>
@@ -91,6 +96,8 @@ const about = () => {
             </div>
             <p className="text-white text-center italic text-xl">
               Olaboye David Tobi
+              <br />
+              <a target="_blank" href="https://github.com/dtobi59">GitHub @dtobi59</a>
             </p>
           </div>
           <div>
@@ -105,6 +112,8 @@ const about = () => {
             </div>
             <p className="text-white text-center italic text-xl">
               Clement James Jnr
+              <br />
+              <a target="_blank" href="https://github.com/jaymesCJ">GitHub @jaymesCJ</a>
             </p>
           </div>
         </div>
