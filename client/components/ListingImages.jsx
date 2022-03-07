@@ -21,63 +21,6 @@ export default function ListingImages({ id, data }) {
     console.log(images);
 
     return (
-<<<<<<< HEAD
-      <section className="overflow-hidden">
-        <div className="container px-5 py-2 mx-auto lg:pt-24 lg:px-32">
-          <div className="flex flex-wrap -m-1 md:-m-2">
-            <div className="flex flex-wrap w-1/2">
-              <div className="w-full p-1 md:p-2">
-                <Image
-                  width={1000}
-                  height={680}
-                  src={images[frontImg]}
-                  alt={data.title}
-                  className="block object-cover object-center w-full h-full rounded-tl-2xl rounded-bl-2xl opacity-100 hover:opacity-90 cursor-pointer"
-                />
-              </div>
-            </div>
-            <div className="flex flex-wrap w-1/2">
-              <div className="w-1/2 p-1 md:p-2">
-                <Image
-                  src={images[interiorImg]}
-                  width={300}
-                  height={200}
-                  alt={data.title}
-                  className="block object-cover object-center w-full h-full opacity-100 hover:opacity-90 cursor-pointer"
-                />
-              </div>
-              <div className="w-1/2 p-1 md:p-2">
-                <Image
-                  src={images[bathImg]}
-                  width={300}
-                  height={200}
-                  alt={data.title}
-                  className="block object-cover object-center w-full h-full rounded-tr-2xl opacity-100 hover:opacity-90 cursor-pointer"
-                />
-              </div>
-              <div className="w-1/2 p-1 md:p-2">
-                <Image
-                  src={images[floorplanImg]}
-                  width={300}
-                  height={200}
-                  alt={data.title}
-                  className="block object-cover object-center w-full h-full  opacity-100 hover:opacity-90 cursor-pointer"
-                />
-              </div>
-              <div className="w-1/2 p-1 md:p-2">
-                <Image
-                  src={images[floorplanAImg]}
-                  width={300}
-                  height={200}
-                  alt={data.title}
-                  className="block object-cover object-center w-full h-full rounded-br-2xl opacity-100 hover:opacity-90 cursor-pointer"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-=======
         <section className="overflow-hidden">
             <div className="container px-5 py-2 mx-auto lg:pt-24 lg:px-32">
                 <div className="flex flex-wrap -m-1 md:-m-2">
@@ -118,7 +61,6 @@ export default function ListingImages({ id, data }) {
                 </div>
             </div>
         </section>
->>>>>>> 5bcc2d1d7e6f3429933057c6af547fb48501d1bd
     );
 }
 

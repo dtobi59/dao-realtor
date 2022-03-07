@@ -82,9 +82,9 @@ const about = () => {
           <div>
             <div className="border-4 border-indigo-500/75 rounded-full mb-8">
               <Image
-                width={265}
+                width={250}
                 height={300}
-                src="/vercel.svg"
+                src="/David.PNG"
                 alt="jaymes-image"
                 className="rounded-full object-contain border-2"
               />
