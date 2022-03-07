@@ -17,7 +17,11 @@ const images = importAll(
   require.context("../assets/images", false, /\.(png|jpe?g|svg|gif)$/)
 );
 
-export default function HomeCard(home, index) {
+export default function HomeCard(home, index, imageLinks) {
+  console.log("imageLinks", imageLinks);
+
+  if (imageLinks) console.log(imageLinks[0]);
+
   const imgLink = `home_front_${index}.jpeg`;
   return (
     <div className="flex flex-col mt-5" key={index}>

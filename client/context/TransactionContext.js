@@ -269,7 +269,7 @@ export const TransactionProvider = ({ children }) => {
       alert("Transaction Failed");
       return false;
     }
-    alert("Transaction Successful");
+    // alert("Transaction Successful");
     return true;
   };
 

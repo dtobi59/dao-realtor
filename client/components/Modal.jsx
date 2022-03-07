@@ -15,6 +15,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 export default function Modal() {
   const [showModal, setShowModal] = useState(false);
   const { currentAccount, createAccount } = useContext(TransactionContext);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     officialName: "",
@@ -32,14 +33,29 @@ export default function Modal() {
     e.preventDefault();
     if (isFormValid()) {
       try {
+        setLoading(true);
         const response = await createAccount(formData);
         if (response) {
           alert("Account created successfully!");
+          setShowModal(false);
+          setLoading(false);
+          clearForm();
         }
       } catch (error) {
+        setLoading(false);
         console.error(error);
       }
     }
+  }
+
+  const clearForm = () => {
+    setFormData({
+      officialName: "",
+      governmentId: "",
+      streetAddress: "",
+      accountType: "",
+      walletAddress: currentAccount,
+    });
   }
 
   const isFormValid = () => {

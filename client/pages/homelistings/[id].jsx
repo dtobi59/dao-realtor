@@ -32,7 +32,8 @@ export default function HomeListing({ id }) {
   return (
     <Layout>
       {loading ? (
-        <div className="h-screen">Loading...</div>) : (
+        <div className="h-screen text-xl flex justify-center items-center">Loading...</div>
+      ) : (
         <>
           <Header title={data.title} description={data.description.description} />
           <div className="flex flex-row sm:flex-col min-w-screen justify-self-auto justify-center w-full">

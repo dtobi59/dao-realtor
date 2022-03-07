@@ -1,12 +1,43 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Layout } from "../../components";
 import Header from "../../components/Header";
 import HomeCard from "../../components/HomeCard";
 import { TransactionContext } from "../../context/TransactionContext";
+import { getLinks } from "../../lib/web3storage";
 
-export default function HomeListings({ data }) {
+export default function HomeListings() {
 
   const { listings } = useContext(TransactionContext);
+
+  const [data, setData] = useState([]);
+  const [imageLinks, setImageLinks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getImageLinks = async () => {
+    const images = [];
+    if (data) {
+      data.map(async (listing, index) => {
+        const links = await getLinks(listing.image_hash);
+        if (links) {
+          images.push({ [listing.id]: links[0] });
+        }
+      });
+      return setImageLinks(images);
+    }
+  };
+
+  useEffect(() => {
+    if (!data) return;
+    getImageLinks();
+  }, [data]);
+
+  useEffect(() => {
+    if (listings) {
+      setData(listings);
+      setLoading(false);
+
+    }
+  }, [listings]);
 
 
   return (
@@ -28,9 +59,16 @@ export default function HomeListings({ data }) {
             </a>
           </div>
         </div>
-        {listings && listings.map((listing, index) => {
-          return HomeCard(listing, index);
-        })}
+        {loading ? (
+          <div className="h-screen text-xl flex justify-center items-center">Loading...</div>
+        ) : (
+          <>
+            {data && data.map((listing, index) => {
+              return HomeCard(listing, index, imageLinks);
+            })}
+
+          </>
+        )}
       </div>
     </Layout>
   )

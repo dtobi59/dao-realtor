@@ -119,7 +119,7 @@ export default function ProjectSubmissionForm({ setLoading }) {
             <div className="w-full md:w-1/2 lg:w-6/12 px-4  place-content-center">
                 <div className="rounded-lg p-2  shadow-lg  text-center">
                     <h2 className="text-2xl font-bold">Project Name</h2>
-                    <input type="text" className="bg-gray-200 w-full px-2 py-1 rounded text-black" disabled={files.length > 0 ? true : false}
+                    <input type="text" className="bg-gray-200 w-full px-2 py-1 rounded text-black"
                         placeholder="Project Name" value={name || ''} onChange={(e) => setName(e.target.value)} />
                     <div className="py-4  text-center">
                         <div className="mb-6">
@@ -187,14 +187,13 @@ export default function ProjectSubmissionForm({ setLoading }) {
                     </div>
                     <hr />
                     <div className="pb-20">
-                        <input type="file" accept="image/jpg,image/png" name="image" className="py-3" id="image" ref={fileInputRef} disabled={!name || files.length >= 5 && true} onChange={handleFileChange} />
+                        <input type="file" accept="image/jpg,image/png" name="image" className="py-3" id="image" ref={fileInputRef} disabled={files.length >= 5 && true} onChange={handleFileChange} />
 
                         <div className="flex flex-row ">
                             <button onClick={handleSubmit} className="bg-[#2952e3] block rounded cursor-pointer px-2 py-1 m-3 hover:bg-[#2546bd]">
                                 Submit
                             </button>
                             <button onClick={clearForm} className="bg-gray-300 text-black block rounded cursor-pointer px-2 py-1  m-3 hover:bg-gray-500">Clear</button>
-                            <button onClick={() => console.log(files)}>LOG</button>
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ export default function ProjectSubmission() {
                 </div>
                 <div className="flex justify-center sm:pb-10">
                     {loading ? (
-                        <div className="h-screen">Loading...</div>
+                        <div className="h-screen text-xl flex justify-center items-center">Loading...</div>
                     ) : (
                         <ProjectSubmissionForm setLoading={setLoading} />
                     )}
