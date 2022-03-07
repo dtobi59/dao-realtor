@@ -19,7 +19,7 @@ const HeroSection = () => {
             <br /> for Real estate investment.
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-            Changing the concept of Real estate investment for the better!
+          leveraging blockchain technology to provide an irresistible real estate experience, unlock untapped potentials in real esate investment.
           </p>
 
           {/* Checks if account is connected or not*/}
@@ -39,10 +39,10 @@ const HeroSection = () => {
           )}
           <div className="grid sm:grid-cols-3 grid-cols-2 width-full mt-10">
             <div className={`rounded-tl-2xl ${commonStyles}`}>Reliability</div>
-            <div className={commonStyles}>Security</div>
+            <div className={commonStyles}>Investment</div>
             <div className={`rounded-tr-2xl ${commonStyles}`}>Real Estate</div>
             <div className={`rounded-bl-2xl ${commonStyles}`}>Web 3.0</div>
-            <div className={commonStyles}>Ethereum</div>
+            <div className={commonStyles}>Polygon</div>
             <div className={`rounded-br-2xl ${commonStyles}`}>Blockchain</div>
           </div>
         </div>
