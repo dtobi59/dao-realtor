@@ -46,15 +46,12 @@ const formatLinks = async (links, cid) => {
     if (!links) { return };
     const formattedLinks = [];
     const url = `https://${cid}.ipfs.dweb.link/`
-
     links.forEach((link) => {
         formattedLinks.push({
             src: url + link.name,
             name: link.name
         });
     });
-
-    console.log(formattedLinks);
     return formattedLinks;
 }
 
@@ -70,6 +67,5 @@ export async function getLinks(cid) {
     for await (const link of ipfs.ls(cid)) {
         links.push(link)
     }
-    console.log(links);
     return await formatLinks(links, cid);
 }

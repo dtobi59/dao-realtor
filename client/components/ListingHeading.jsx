@@ -6,7 +6,7 @@ export default function ListingHeading({ data }) {
     <div className="flex flex-row justify-around items-center pb-2">
       <div className="flex flex-col items-center px-8">
         <div className="text-[32px] py-1">{data.title}</div>
-        <p className="text-xl">Developed by:</p>
+        <p className="text-xl">Developed by: {data.developer}</p>
       </div>
       <div className="flex items-center">
         <button className="px-4 py-2 bg-blue-600 rounded-md hover:bg-blue-400 mx-3">

@@ -1,26 +1,12 @@
-import { useEffect, useState } from "react";
-import { homes } from "../../assets/data/homes.json";
+import { useContext } from "react";
 import { Layout } from "../../components";
 import Header from "../../components/Header";
 import HomeCard from "../../components/HomeCard";
-
-const getListings = async () => {
-  const listings = homes //fetch("../../assets/data/homes.json").then(res => res.json());
-  return listings;
-};
+import { TransactionContext } from "../../context/TransactionContext";
 
 export default function HomeListings({ data }) {
 
-  const [listings, setListings] = useState([]);
-
-  useEffect(() => {
-    getListings().then(listings => {
-      setListings(listings);
-    });
-    return () => {
-      // cleanup
-    }
-  }, [])
+  const { listings } = useContext(TransactionContext);
 
 
   return (

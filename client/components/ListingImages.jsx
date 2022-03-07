@@ -18,8 +18,6 @@ export default function ListingImages({ id, data }) {
         getImages();
     }, []);
 
-    console.log(images);
-
     return (
         <section className="overflow-hidden">
             <div className="container px-5 py-2 mx-auto lg:pt-24 lg:px-32">
@@ -39,23 +37,32 @@ export default function ListingImages({ id, data }) {
                                     />
                                 </div>
                             </div>
-                            <div className="flex flex-wrap w-1/2">
-                                {images.map((image, index) => {
-                                    if (index != 0) {
-                                        return (
-                                            <div className="w-1/2 p-1 md:p-2" key={index}>
-                                                <Image
-                                                    src={`/api/imageProxy?imageUrl=${image.src}`}
-                                                    width={300}
-                                                    height={200}
-                                                    alt={data.title}
-                                                    className="block object-cover object-center w-full h-full opacity-100 hover:opacity-90 cursor-pointer"
-                                                />
-                                            </div>
-                                        )
-                                    }
-                                })}
-                            </div>
+                            {images.length < 1 ? (
+                                <>
+                                </>
+
+                            ) : (
+                                <>
+                                    <div className="flex flex-wrap w-1/2">
+                                        {images.map((image, index) => {
+                                            if (index != 0) {
+                                                return (
+                                                    <div className="w-1/2 p-1 md:p-2" key={index}>
+                                                        <Image
+                                                            src={`/api/imageProxy?imageUrl=${image.src}`}
+                                                            width={300}
+                                                            height={200}
+                                                            alt={data.title}
+                                                            className="block object-cover object-center w-full h-full opacity-100 hover:opacity-90 cursor-pointer"
+                                                        />
+                                                    </div>
+                                                )
+                                            }
+                                        })}
+                                    </div>
+                                </>
+                            )}
+
                         </>
                     )}
                 </div>

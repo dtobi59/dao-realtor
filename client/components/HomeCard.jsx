@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { BiCurrentLocation } from "react-icons/bi";
-import { IoIosBed } from "react-icons/io";
-import { FaBath } from "react-icons/fa";
 import { BsBoundingBoxCircles } from "react-icons/bs";
+import { FaBath } from "react-icons/fa";
+import { IoIosBed } from "react-icons/io";
+
 
 function importAll(r) {
   let images = {};
@@ -18,7 +19,6 @@ const images = importAll(
 
 export default function HomeCard(home, index) {
   const imgLink = `home_front_${index}.jpeg`;
-
   return (
     <div className="flex flex-col mt-5" key={index}>
       <div className="flex flex-row  mx-44  border-b-2 border-slate-500 py-8">
@@ -55,7 +55,7 @@ export default function HomeCard(home, index) {
             </div>
           </div>
           <a
-            href={`/homelistings/${index}`}
+            href={`/homelistings/${home.id}`}
             type="button"
             className="bg-[#2952e3] block rounded-full cursor-pointer px-4 py-2 hover:bg-[#2546bd] -mt-8 shadow-lg shadow-blue-500/50"
           >

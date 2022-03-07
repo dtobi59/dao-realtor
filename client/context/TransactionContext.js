@@ -12,9 +12,6 @@ if (typeof window !== "undefined") {
   eth = window.ethereum;
 }
 
-
-
-
 const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
@@ -29,6 +26,8 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState();
+
+  const [listings, setListings] = useState([]);
   useEffect(() => {
     if (!currentAccount) return;
     (async () => {
@@ -206,6 +205,36 @@ export const TransactionProvider = ({ children }) => {
     }
   };
 
+  const getPropertyListings = async () => {
+
+    const formatListings = (listings) => {
+
+      const formattedListings = [];
+
+      listings.map((listing) => {
+        formattedListings.push({
+          price: listing.price.toNumber(),
+          image_hash: listing.image_hash,
+          id: listing.id.toNumber(),
+          description: JSON.parse(listing.description),
+          longitude: listing.longitude,
+          latitude: listing.latitude,
+          title: listing.name,
+          developer: listing.developer,
+        });
+      });
+
+      return formattedListings;
+    };
+
+    const transactionContract = getEthereumContract();
+    const propertyListings = await transactionContract.getAllProperty();
+    console.log(propertyListings)
+    if (propertyListings.length > 0) {
+      setListings(formatListings(propertyListings));
+    }
+  };
+
   /**
    * Checks if MetaMask is installed and an account is connected
    * @param {*} metamask Injected MetaMask code from the browser
@@ -265,6 +294,7 @@ export const TransactionProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    getPropertyListings()
     checkIfWalletIsConnected();
   }, []);
 
@@ -275,6 +305,7 @@ export const TransactionProvider = ({ children }) => {
         currentAccount,
         createAccount,
         createProperty,
+        listings
       }}
     >
       {children}

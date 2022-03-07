@@ -1,8 +1,8 @@
-import ListingHeading from "./ListingHeading";
 import { BiCurrentLocation } from "react-icons/bi";
-import { IoIosBed } from "react-icons/io";
+import { BsBoundingBoxCircles, BsFillInfoCircleFill } from "react-icons/bs";
 import { FaBath } from "react-icons/fa";
-import { BsBoundingBoxCircles } from "react-icons/bs";
+import { IoIosBed } from "react-icons/io";
+import ListingHeading from "./ListingHeading";
 
 export default function ListingDetails({ data }) {
   return (
@@ -31,6 +31,12 @@ export default function ListingDetails({ data }) {
               <BsBoundingBoxCircles />
               <p className="ml-2">{data.description.area} sqft</p>
             </div>
+
+          </div>
+
+          <div className="flex items-center ml-6 py-10 text-xl">
+            <BsFillInfoCircleFill />
+            <p className="ml-2">{data.description.description} </p>
           </div>
         </div>
       </div>
