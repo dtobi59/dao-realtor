@@ -19,7 +19,7 @@ const HeroSection = () => {
             <br /> for Real estate investment.
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-          leveraging blockchain technology to provide an irresistible real estate experience, unlock untapped potentials in real esate investment.
+          Leveraging blockchain technology to provide an irresistible real estate experience, unlock untapped potentials in real esate investment.
           </p>
 
           {/* Checks if account is connected or not*/}
