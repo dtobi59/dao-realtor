@@ -1,4 +1,4 @@
-# dao-realtor 
+# Dao Realtor 
 Decentralize Autonomous Organisation for Real estate investment. 
 
 # Project Description
